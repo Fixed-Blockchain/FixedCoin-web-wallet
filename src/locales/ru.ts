@@ -116,6 +116,7 @@ export const ru = {
   "network.stale": "Устаревший снимок",
   "network.unavailable": "Сеть недоступна",
   "settings.session": "Сессия",
+  "settings.never": "Никогда",
   "settings.lock": "Автоматическая блокировка после бездействия",
   "settings.minutes": "{minutes} мин",
   "settings.backgroundLock": "Автоматическая блокировка после смены вкладки",

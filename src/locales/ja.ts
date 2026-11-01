@@ -116,6 +116,7 @@ export const ja = {
   "network.stale": "古いスナップショット",
   "network.unavailable": "ネットワークを利用できません",
   "settings.session": "セッション",
+  "settings.never": "しない",
   "settings.lock": "操作がない場合の自動ロック",
   "settings.minutes": "{minutes}分",
   "settings.backgroundLock": "タブ切り替え後の自動ロック",

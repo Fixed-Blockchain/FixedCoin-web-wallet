@@ -116,6 +116,7 @@ export const tr = {
   "network.stale": "Eski snapshot",
   "network.unavailable": "Ağ kullanılamıyor",
   "settings.session": "Oturum",
+  "settings.never": "Asla",
   "settings.lock": "Hareketsizlik sonrası otomatik kilit",
   "settings.minutes": "{minutes} dk",
   "settings.backgroundLock": "Sekme değişikliğinden sonra otomatik kilit",

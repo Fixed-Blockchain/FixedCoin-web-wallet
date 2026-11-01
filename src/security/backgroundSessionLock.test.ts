@@ -15,6 +15,7 @@ class TestPage extends EventTarget {
 function setup(
   delaySeconds: BackgroundLockSeconds = 30,
   trackWindowFocus = true,
+  lockWhenDisabled = false,
 ) {
   const page = new TestPage();
   const windowEvents = new EventTarget();
@@ -24,6 +25,7 @@ function setup(
     windowEvents,
     delaySeconds,
     trackWindowFocus,
+    lockWhenDisabled,
     onLock,
   });
   const focus = (focused: boolean) => {
@@ -41,7 +43,11 @@ describe('background session lifecycle', () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
 
-  it.each(BACKGROUND_LOCK_SECOND_OPTIONS)(
+  const enabledDelays = BACKGROUND_LOCK_SECOND_OPTIONS.filter(
+    (seconds): seconds is Exclude<BackgroundLockSeconds, 0> => seconds > 0,
+  );
+
+  it.each(enabledDelays)(
     'applies the configured %i-second delay when leaving seed backup',
     (seconds) => {
       const session = setup(seconds);
@@ -55,6 +61,29 @@ describe('background session lifecycle', () => {
       session.stop();
     },
   );
+
+  it('keeps an ordinary session open when background locking is disabled', () => {
+    const session = setup(0, true);
+    session.focus(false);
+    session.visible(false);
+    vi.advanceTimersByTime(120_000);
+    session.visible(true);
+    session.focus(true);
+    expect(session.onLock).not.toHaveBeenCalled();
+    session.stop();
+  });
+
+  it('keeps sensitive seed backup stricter when background locking is disabled', () => {
+    const blurred = setup(0, true, true);
+    blurred.focus(false);
+    expect(blurred.onLock).toHaveBeenCalledTimes(1);
+    blurred.stop();
+
+    const hidden = setup(0, true, true);
+    hidden.visible(false);
+    expect(hidden.onLock).toHaveBeenCalledTimes(1);
+    hidden.stop();
+  });
 
   it('preserves creation on return before expiry and gives the next absence its own delay', () => {
     const session = setup();
@@ -127,14 +156,14 @@ describe('background session lifecycle', () => {
   });
 
   it('still destroys secrets immediately when navigating away or closing the page', () => {
-    const session = setup(60);
+    const session = setup(0);
     session.windowEvents.dispatchEvent(new Event('pagehide'));
     expect(session.onLock).toHaveBeenCalledTimes(1);
     session.stop();
   });
 
   it('destroys a session restored from the page cache', () => {
-    const session = setup();
+    const session = setup(0);
     const event = Object.assign(new Event('pageshow'), { persisted: true });
     session.windowEvents.dispatchEvent(event);
     expect(session.onLock).toHaveBeenCalledTimes(1);

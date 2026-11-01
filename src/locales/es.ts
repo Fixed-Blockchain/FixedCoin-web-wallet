@@ -116,6 +116,7 @@ export const es = {
   "network.stale": "Snapshot obsoleto",
   "network.unavailable": "Red no disponible",
   "settings.session": "Sesión",
+  "settings.never": "Nunca",
   "settings.lock": "Bloqueo automático tras inactividad",
   "settings.minutes": "{minutes} min",
   "settings.backgroundLock": "Bloqueo automático tras cambiar de pestaña",

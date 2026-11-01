@@ -116,6 +116,7 @@ export const zh = {
   "network.stale": "快照已过期",
   "network.unavailable": "网络不可用",
   "settings.session": "会话",
+  "settings.never": "从不",
   "settings.lock": "无操作后自动锁定",
   "settings.minutes": "{minutes} 分钟",
   "settings.backgroundLock": "切换标签页后自动锁定",

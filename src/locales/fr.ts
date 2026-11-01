@@ -116,6 +116,7 @@ export const fr = {
   "network.stale": "Snapshot obsolète",
   "network.unavailable": "Réseau indisponible",
   "settings.session": "Session",
+  "settings.never": "Jamais",
   "settings.lock": "Verrouillage automatique après inactivité",
   "settings.minutes": "{minutes} min",
   "settings.backgroundLock": "Verrouillage automatique après changement d’onglet",

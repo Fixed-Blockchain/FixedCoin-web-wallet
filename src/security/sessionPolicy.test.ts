@@ -18,12 +18,14 @@ const accessSource = readFileSync(
 );
 
 describe('wallet session lock policy', () => {
-  it('offers only whole-minute inactivity locks from 1 through 10 minutes', () => {
-    expect(AUTO_LOCK_MINUTE_OPTIONS).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  it('offers disabled or whole-minute inactivity locks through 10 minutes', () => {
+    expect(AUTO_LOCK_MINUTE_OPTIONS).toEqual([
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    ]);
     expect(DEFAULT_AUTO_LOCK_MINUTES).toBe(5);
     expect(isAutoLockMinutes(1)).toBe(true);
     expect(isAutoLockMinutes(10)).toBe(true);
-    expect(isAutoLockMinutes(0)).toBe(false);
+    expect(isAutoLockMinutes(0)).toBe(true);
     expect(isAutoLockMinutes(11)).toBe(false);
     expect(isAutoLockMinutes(1.5)).toBe(false);
   });
@@ -39,10 +41,19 @@ describe('wallet session lock policy', () => {
 
   it('uses the selected background delay for both wallet and seed creation', () => {
     expect(accessSource).toContain('Boolean(activeWallet || pendingCreation)');
-    expect(accessSource).toContain('Boolean(pendingCreation)');
+    expect(accessSource).toContain(
+      'Boolean(pendingCreation) || sensitiveRevealActive',
+    );
     expect(accessSource).toContain('return watchBackgroundSession({');
     expect(accessSource).toContain('delaySeconds: backgroundLockSeconds');
-    expect(accessSource).toContain('trackWindowFocus: isCreatingWallet');
+    expect(accessSource).toContain('trackWindowFocus: isSensitiveSession');
+    expect(accessSource).toContain('lockWhenDisabled: isSensitiveSession');
+    expect(accessSource).toContain(
+      'onSensitiveRevealChange={setSensitiveRevealActive}',
+    );
+    expect(accessSource).toContain(
+      'if (!activeWallet || autoLockMinutes === 0) return;',
+    );
   });
 
   it('cannot render a wallet after its in-memory session has been destroyed', () => {

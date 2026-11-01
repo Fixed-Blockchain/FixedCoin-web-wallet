@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.1
+
+- Update the reviewed Vite, Vitest, Cloudflare, Wrangler and formatting toolchain dependencies.
+- Pin audited transitive packages and verify the complete lifecycle-script allowlist.
+- Add translated “Never” options for inactivity and background session locking while preserving strict seed, page-exit and BFCache protections.
+- Read the displayed wallet version from `package.json` and link it to the matching FixedCoin GitHub release tag.
+- Disable source maps explicitly in the Vite production build.
+
 ## 1.0.0
 
 - Initial FixedCoin Web Wallet release, based on Nito Web Wallet 1.1.1.

@@ -1,17 +1,19 @@
 import type { BackgroundLockSeconds } from './sessionPolicy';
 
-/** Share the configured delay between an open wallet and seed backup. */
+/** Apply ordinary delays while keeping sensitive background exits strict. */
 export function watchBackgroundSession({
   page,
   windowEvents,
   delaySeconds,
   trackWindowFocus,
+  lockWhenDisabled = false,
   onLock,
 }: {
   page: EventTarget & { visibilityState: string; hasFocus(): boolean };
   windowEvents: EventTarget;
   delaySeconds: BackgroundLockSeconds;
   trackWindowFocus: boolean;
+  lockWhenDisabled?: boolean;
   onLock: () => void;
 }): () => void {
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -38,12 +40,14 @@ export function watchBackgroundSession({
       page.visibilityState === 'hidden' ||
       (trackWindowFocus && !page.hasFocus());
     if (background) {
-      // Blur and visibilitychange belong to the same absence; never extend it.
-      if (deadline !== undefined) return;
       if (delaySeconds === 0) {
-        lock();
+        deadline = undefined;
+        clearTimer();
+        if (lockWhenDisabled) lock();
         return;
       }
+      // Blur and visibilitychange belong to the same absence; never extend it.
+      if (deadline !== undefined) return;
       deadline = Date.now() + delaySeconds * 1_000;
       timer = setTimeout(lock, delaySeconds * 1_000);
       return;

@@ -18,7 +18,6 @@ describe('lock preference storage', () => {
     for (const rejected of [
       null,
       'invalid-json',
-      JSON.stringify({ autoLockMinutes: 0, backgroundLockSeconds: 30 }),
       JSON.stringify({ autoLockMinutes: 5, backgroundLockSeconds: 5 }),
       JSON.stringify({ autoLockMinutes: '5', backgroundLockSeconds: 30 }),
       JSON.stringify({
@@ -29,6 +28,27 @@ describe('lock preference storage', () => {
     ]) {
       expect(parseLockPreferences(rejected)).toBeUndefined();
     }
+  });
+
+  it('restores both disabled lock preferences from the versioned entry', () => {
+    const serialized = JSON.stringify({
+      autoLockMinutes: 0,
+      backgroundLockSeconds: 0,
+    });
+    const storage = {
+      getItem: vi.fn(() => serialized),
+      setItem: vi.fn(),
+    };
+
+    expect(parseLockPreferences(serialized)).toEqual({
+      autoLockMinutes: 0,
+      backgroundLockSeconds: 0,
+    });
+    expect(readLockPreferences(storage)).toEqual({
+      autoLockMinutes: 0,
+      backgroundLockSeconds: 0,
+    });
+    expect(storage.getItem).toHaveBeenCalledWith(LOCK_PREFERENCES_STORAGE_KEY);
   });
 
   it('writes exactly one versioned entry containing only the two settings', () => {

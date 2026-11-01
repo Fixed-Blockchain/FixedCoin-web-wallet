@@ -116,6 +116,7 @@ export const de = {
   "network.stale": "Veralteter Snapshot",
   "network.unavailable": "Netzwerk nicht verfügbar",
   "settings.session": "Sitzung",
+  "settings.never": "Nie",
   "settings.lock": "Automatische Sperre nach Inaktivität",
   "settings.minutes": "{minutes} Min.",
   "settings.backgroundLock": "Automatische Sperre nach einem Tabwechsel",

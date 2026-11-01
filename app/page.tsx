@@ -4,8 +4,13 @@ import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 
 import { WalletLanguageSelect } from '@/components/wallet-language-select';
+import packageManifest from '@/package.json';
 import { LanguageProvider, useI18n } from '@/src/i18n';
 import { WalletAccessWorkspace } from './wallet-access-workspace';
+
+const WALLET_VERSION = packageManifest.version;
+const WALLET_VERSION_LABEL = `v${WALLET_VERSION}`;
+const WALLET_RELEASE_URL = `https://github.com/Fixed-Blockchain/FixedCoin-web-wallet/releases/tag/${WALLET_VERSION_LABEL}`;
 
 function FixedCoinBrand() {
   return (
@@ -54,15 +59,24 @@ function WalletPage() {
       <WalletAccessWorkspace />
 
       <footer className="mt-auto border-t border-amber-200/[0.08] px-4 py-6 sm:px-6">
-        <div className="mx-auto flex max-w-6xl justify-center">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-1 text-center text-sm font-semibold text-stone-400">
           <a
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-4 text-center text-sm font-semibold text-stone-400 transition-colors hover:text-amber-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-3 transition-colors hover:text-amber-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             href="https://github.com/Fixed-Blockchain/FixedCoin-web-wallet"
             rel="noopener noreferrer"
             target="_blank"
           >
             <span>{t('footer.officialRepository')}</span>
             <ExternalLink aria-hidden="true" className="size-4 shrink-0" />
+          </a>
+          <span aria-hidden="true">{'·'}</span>
+          <a
+            className="inline-flex min-h-11 items-center justify-center rounded-full px-3 transition-colors hover:text-amber-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            href={WALLET_RELEASE_URL}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {WALLET_VERSION_LABEL}
           </a>
         </div>
       </footer>

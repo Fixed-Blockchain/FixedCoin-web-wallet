@@ -11,6 +11,10 @@ const workerSource = readFileSync(
   resolve(process.cwd(), 'src/crypto/crypto.worker.ts'),
   'utf8',
 );
+const dashboardSource = readFileSync(
+  resolve(process.cwd(), 'app/wallet-dashboard.tsx'),
+  'utf8',
+);
 
 describe('seed lifecycle policy', () => {
   it('makes generated-phrase verification one-way and Worker-validated', () => {
@@ -20,6 +24,16 @@ describe('seed lifecycle policy', () => {
     expect(accessSource).toContain("created.mnemonic = '';");
     expect(accessSource).toContain('summary: pendingCreation.summary');
     expect(accessSource).toContain('wordIndexes: pendingCreation.wordIndexes');
+  });
+
+  it('reports recovery-phrase display as a sensitive background state', () => {
+    expect(dashboardSource).toContain(
+      'onSensitiveRevealChange(Boolean(revealedMnemonic))',
+    );
+    expect(dashboardSource).toContain(
+      '() => () => onSensitiveRevealChange(false)',
+    );
+    expect(accessSource).toContain('lockWhenDisabled: isSensitiveSession');
   });
 
   it('keeps email and imported wallet authority in encrypted Worker vaults', () => {

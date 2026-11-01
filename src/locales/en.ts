@@ -114,6 +114,7 @@ export const en = {
   "network.stale": "Outdated snapshot",
   "network.unavailable": "Network unavailable",
   "settings.session": "Session",
+  "settings.never": "Never",
   "settings.lock": "Automatic lock after inactivity",
   "settings.minutes": "{minutes} min",
   "settings.backgroundLock": "Automatic lock after changing tabs",

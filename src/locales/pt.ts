@@ -116,6 +116,7 @@ export const pt = {
   "network.stale": "Snapshot desatualizado",
   "network.unavailable": "Rede indisponível",
   "settings.session": "Sessão",
+  "settings.never": "Nunca",
   "settings.lock": "Bloqueio automático após inatividade",
   "settings.minutes": "{minutes} min",
   "settings.backgroundLock": "Bloqueio automático após mudar de separador",

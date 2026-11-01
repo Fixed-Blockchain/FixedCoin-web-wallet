@@ -161,6 +161,7 @@ export function WalletAccessWorkspace() {
   const [activeWallet, setActiveWallet] = useState<WalletSessionSummary>();
   const [sessionActive, setSessionActive] = useState(false);
   const [pendingCreation, setPendingCreation] = useState<PendingCreation>();
+  const [sensitiveRevealActive, setSensitiveRevealActive] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string>();
   const [notice, setNotice] = useState<string>();
@@ -262,6 +263,7 @@ export function WalletAccessWorkspace() {
       setSessionActive(false);
       setActiveWallet(undefined);
       setPendingCreation(undefined);
+      setSensitiveRevealActive(false);
       setNotice(message ?? t('notice.sessionDestroyed'));
       // Terminate synchronously instead of waiting for a round trip: leaving the
       // wallet must destroy the Worker even if WASM or the event loop is stuck.
@@ -296,7 +298,7 @@ export function WalletAccessWorkspace() {
   }, [clearEmailCredentialDom, clearEmailCredentialFields]);
 
   useEffect(() => {
-    if (!activeWallet) return;
+    if (!activeWallet || autoLockMinutes === 0) return;
     let timer: ReturnType<typeof setTimeout>;
     const resetTimer = () => {
       clearTimeout(timer);
@@ -324,15 +326,16 @@ export function WalletAccessWorkspace() {
     };
   }, [activeWallet, autoLockMinutes, destroySession, t]);
 
-  const hasSensitiveSession = Boolean(activeWallet || pendingCreation);
-  const isCreatingWallet = Boolean(pendingCreation);
+  const hasSession = Boolean(activeWallet || pendingCreation);
+  const isSensitiveSession = Boolean(pendingCreation) || sensitiveRevealActive;
   useEffect(() => {
-    if (!hasSensitiveSession) return;
+    if (!hasSession) return;
     return watchBackgroundSession({
       page: document,
       windowEvents: window,
       delaySeconds: backgroundLockSeconds,
-      trackWindowFocus: isCreatingWallet,
+      trackWindowFocus: isSensitiveSession,
+      lockWhenDisabled: isSensitiveSession,
       onLock: () =>
         destroySession(
           backgroundLockSeconds === 0
@@ -343,8 +346,8 @@ export function WalletAccessWorkspace() {
         ),
     });
   }, [
-    hasSensitiveSession,
-    isCreatingWallet,
+    hasSession,
+    isSensitiveSession,
     backgroundLockSeconds,
     destroySession,
     t,
@@ -537,6 +540,7 @@ export function WalletAccessWorkspace() {
             revealMnemonic={revealMnemonic}
             onAutoLockMinutesChange={setAutoLockMinutes}
             onBackgroundLockSecondsChange={setBackgroundLockSeconds}
+            onSensitiveRevealChange={setSensitiveRevealActive}
             onLock={destroySession}
           />
         </Suspense>

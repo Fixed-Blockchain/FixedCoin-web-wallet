@@ -43,6 +43,26 @@ describe('wallet languages', () => {
     );
   });
 
+  it('translates the disabled lock label in every supported language', () => {
+    const expected = {
+      en: 'Never',
+      fr: 'Jamais',
+      de: 'Nie',
+      es: 'Nunca',
+      ja: 'しない',
+      tr: 'Asla',
+      pt: 'Nunca',
+      ru: 'Никогда',
+      zh: '从不',
+    } as const;
+
+    for (const { code } of WALLET_LANGUAGES) {
+      expect(translateCatalogMessage(code, 'settings.never')).toBe(
+        expected[code],
+      );
+    }
+  });
+
   it('keeps wallet synchronization independent from translation changes', () => {
     const provider = readFileSync(
       resolve(process.cwd(), 'src/i18n.tsx'),
@@ -146,7 +166,20 @@ describe('wallet languages', () => {
 
   it('exposes the translated official repository as a secure external link', () => {
     const source = readFileSync(resolve(process.cwd(), 'app/page.tsx'), 'utf8');
+    const packageManifest = JSON.parse(
+      readFileSync(resolve(process.cwd(), 'package.json'), 'utf8'),
+    );
 
+    expect(packageManifest.version).toBe('1.0.1');
+    expect(`v${packageManifest.version}`).toBe('v1.0.1');
+    expect(source).toContain("import packageManifest from '@/package.json';");
+    expect(source).toContain('const WALLET_VERSION = packageManifest.version;');
+    expect(source).toContain(
+      'const WALLET_VERSION_LABEL = `v${WALLET_VERSION}`;',
+    );
+    expect(source).toContain('releases/tag/${WALLET_VERSION_LABEL}`;');
+    expect(source).toContain('href={WALLET_RELEASE_URL}');
+    expect(source).toContain('{WALLET_VERSION_LABEL}');
     expect(source).toContain("t('footer.officialRepository')");
     expect(source).toContain(
       'href="https://github.com/Fixed-Blockchain/FixedCoin-web-wallet"',
