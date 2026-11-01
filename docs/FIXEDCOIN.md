@@ -11,19 +11,19 @@ Network parameters were checked against
 specifically `src/kernel/chainparams.cpp`, `src/consensus/consensus.h` and
 `src/policy/policy.h`.
 
-| Parameter | FixedCoin mainnet |
-| --- | --- |
-| Bech32/Bech32m HRP | `fix` |
-| P2PKH version | `0x01` |
-| P2SH version | `0x00` |
-| WIF version | `0x80` |
-| Extended public/private versions | `0x0488b21e` / `0x0488ade4` |
-| Genesis hash | `000008e19a0f9124269e897bdcff8ef981fa2d563431df80ca27bc4a1373efd6` |
-| Coinbase consensus maturity | 100 blocks |
-| Minimum relay fee | 1,000 satoshis/kB |
-| Dust relay fee | 3,000 satoshis/kB |
-| Browser Electrum endpoint | `wss://electrumx.fixedcoin.org:50004` |
-| Transaction explorer | `https://explorer.fixedcoin.org/tx/` |
+| Parameter                        | FixedCoin mainnet                                                  |
+| -------------------------------- | ------------------------------------------------------------------ |
+| Bech32/Bech32m HRP               | `fix`                                                              |
+| P2PKH version                    | `0x01`                                                             |
+| P2SH version                     | `0x00`                                                             |
+| WIF version                      | `0x80`                                                             |
+| Extended public/private versions | `0x0488b21e` / `0x0488ade4`                                        |
+| Genesis hash                     | `000008e19a0f9124269e897bdcff8ef981fa2d563431df80ca27bc4a1373efd6` |
+| Coinbase consensus maturity      | 100 blocks                                                         |
+| Minimum relay fee                | 1,000 satoshis/kB                                                  |
+| Dust relay fee                   | 3,000 satoshis/kB                                                  |
+| Browser Electrum endpoint        | `wss://electrumx.fixedcoin.org:50004`                              |
+| Transaction explorer             | `https://explorer.fixedcoin.org/tx/`                               |
 
 The wallet retains the upstream conservative coinbase policy: spending is
 enabled at 101 confirmations. SegWit and Taproot are active on FixedCoin mainnet.
@@ -49,4 +49,5 @@ The email reference vector was calculated independently with Node's PBKDF2 and
 BIP39, and its addresses with bitcoinjs-lib/BIP32 and the FixedCoin parameters.
 These static vectors exercise the Rust/WASM implementation in the test suite.
 
-The logo is the official `fix-256.png` asset from the pinned Core repository.
+The wallet uses the current transparent FixedCoin brand artwork, with dedicated
+sizes for the interface, browser favicons and home-screen icons.
