@@ -19,6 +19,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   icons: {
     icon: [
+      { url: '/favicon.ico', type: 'image/x-icon' },
       { url: '/fixedcoin-logo-16.png', sizes: '16x16', type: 'image/png' },
       { url: '/fixedcoin-logo-32.png', sizes: '32x32', type: 'image/png' },
       { url: '/fixedcoin-logo-48.png', sizes: '48x48', type: 'image/png' },
@@ -26,11 +27,9 @@ export const metadata: Metadata = {
       { url: '/fixedcoin-logo-128.png', sizes: '128x128', type: 'image/png' },
       { url: '/fixedcoin-logo.png', sizes: '256x256', type: 'image/png' },
     ],
-    shortcut: [
-      { url: '/fixedcoin-logo-32.png', sizes: '32x32', type: 'image/png' },
-    ],
+    shortcut: [{ url: '/favicon.ico', type: 'image/x-icon' }],
     apple: [
-      { url: '/fixedcoin-logo.png', sizes: '256x256', type: 'image/png' },
+      { url: '/apple-touch-icon.png', sizes: '256x256', type: 'image/png' },
     ],
   },
   title: 'FIX Web Wallet',
