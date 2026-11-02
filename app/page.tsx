@@ -19,7 +19,7 @@ function FixedCoinBrand() {
         alt="FixedCoin"
         className="size-11 rounded-2xl border border-amber-200/[0.12] bg-[#171209] object-contain p-2 transition-transform duration-300 group-hover/brand:-rotate-3 group-hover/brand:scale-105 motion-reduce:transition-none"
         height={40}
-        priority
+        preload
         src="/fixedcoin-logo.png"
         width={40}
       />

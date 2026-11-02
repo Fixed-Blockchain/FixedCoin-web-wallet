@@ -74,7 +74,7 @@ export function WalletLanguageSelect({ id }: WalletLanguageSelectProps) {
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={t('settings.languageLabel')}
-        className="group/language flex min-h-9 cursor-pointer items-center gap-2 rounded-full border border-amber-200/[0.12] bg-[#241b0e] px-2.5 text-xs font-bold text-stone-300 outline-none transition-all duration-200 hover:-transtone-y-0.5 hover:border-amber-300/25 hover:bg-[#2c2111] hover:text-amber-100 focus-visible:border-amber-300/40 focus-visible:ring-4 focus-visible:ring-amber-300/10 sm:px-3"
+        className="group/language flex min-h-9 cursor-pointer items-center gap-2 rounded-full border border-amber-200/[0.12] bg-[#241b0e] px-2.5 text-xs font-bold text-stone-300 outline-none transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-300/25 hover:bg-[#2c2111] hover:text-amber-100 focus-visible:border-amber-300/40 focus-visible:ring-4 focus-visible:ring-amber-300/10 sm:px-3"
         onClick={() => setOpen((current) => !current)}
       >
         <Languages

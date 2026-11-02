@@ -704,7 +704,7 @@ export function WalletAccessWorkspace() {
                     setPrivateKeyVisible(false);
                     setEmailPasswordVisible(false);
                   }}
-                  className={`group/source flex min-h-16 min-w-0 flex-col items-center justify-center gap-1.5 rounded-2xl border px-2 text-center text-[11px] font-bold outline-none transition-all duration-200 sm:text-xs md:min-h-16 md:flex-row md:justify-start md:gap-3 md:px-4 md:text-left ${active ? 'border-amber-300/30 bg-[#a96408] text-white' : 'border-transparent text-stone-500 hover:-transtone-y-0.5 hover:border-amber-200/10 hover:bg-white/[0.035] hover:text-stone-200 focus-visible:border-amber-300/30 focus-visible:ring-4 focus-visible:ring-amber-300/10'}`}
+                  className={`group/source flex min-h-16 min-w-0 flex-col items-center justify-center gap-1.5 rounded-2xl border px-2 text-center text-[11px] font-bold outline-none transition-all duration-200 sm:text-xs md:min-h-16 md:flex-row md:justify-start md:gap-3 md:px-4 md:text-left ${active ? 'border-amber-300/30 bg-[#a96408] text-white' : 'border-transparent text-stone-500 hover:-translate-y-0.5 hover:border-amber-200/10 hover:bg-white/[0.035] hover:text-stone-200 focus-visible:border-amber-300/30 focus-visible:ring-4 focus-visible:ring-amber-300/10'}`}
                 >
                   <span
                     className={`grid size-8 place-items-center rounded-xl transition-all duration-200 ${active ? 'bg-white/12' : 'bg-white/[0.035] group-hover/source:bg-white/[0.07]'}`}

@@ -1504,7 +1504,7 @@ export function WalletDashboard({
             aria-label={label}
             aria-current={activeView === key ? 'page' : undefined}
             onClick={() => setActiveView(key)}
-            className={`group/nav flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-2xl border px-0.5 py-2 text-[9px] font-bold tracking-tight outline-none transition-all duration-200 min-[375px]:text-[10px] sm:text-xs lg:min-h-12 lg:flex-row lg:gap-2 lg:px-2 ${activeView === key ? 'border-amber-300/20 bg-[#a96408] text-white' : 'border-transparent text-stone-500 hover:-transtone-y-0.5 hover:bg-white/[0.04] hover:text-stone-200 focus-visible:ring-4 focus-visible:ring-amber-300/10'}`}
+            className={`group/nav flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-2xl border px-0.5 py-2 text-[9px] font-bold tracking-tight outline-none transition-all duration-200 min-[375px]:text-[10px] sm:text-xs lg:min-h-12 lg:flex-row lg:gap-2 lg:px-2 ${activeView === key ? 'border-amber-300/20 bg-[#a96408] text-white' : 'border-transparent text-stone-500 hover:-translate-y-0.5 hover:bg-white/[0.04] hover:text-stone-200 focus-visible:ring-4 focus-visible:ring-amber-300/10'}`}
           >
             <Icon
               className="size-4 shrink-0 transition-transform duration-200 group-hover/nav:scale-110"
@@ -2050,7 +2050,7 @@ export function WalletDashboard({
                         setSelectedFamily(family.key);
                         setLocalError(undefined);
                       }}
-                      className={`group/family min-h-14 rounded-2xl border px-3 py-2 text-left text-xs font-bold transition-all duration-200 hover:-transtone-y-0.5 ${
+                      className={`group/family min-h-14 rounded-2xl border px-3 py-2 text-left text-xs font-bold transition-all duration-200 hover:-translate-y-0.5 ${
                         selectedFamily === family.key
                           ? 'border-amber-300/40 bg-amber-300/12 text-amber-100'
                           : 'border-white/8 bg-stone-950/45 text-stone-400 hover:border-white/15 hover:bg-white/[0.055] hover:text-stone-200'
@@ -2306,7 +2306,7 @@ export function WalletDashboard({
                       ) ? (
                         <button
                           type="button"
-                          className="absolute right-2 top-1/2 mt-1 -transtone-y-1/2 rounded-md px-2 py-1 text-[10px] font-bold text-amber-200 hover:bg-amber-300/10 disabled:cursor-not-allowed disabled:opacity-40"
+                          className="absolute right-2 top-1/2 mt-1 -translate-y-1/2 rounded-md px-2 py-1 text-[10px] font-bold text-amber-200 hover:bg-amber-300/10 disabled:cursor-not-allowed disabled:opacity-40"
                           disabled={sendBusy || snapshot.spendableSats === 0}
                           onClick={() => void applyMax(index)}
                         >
@@ -3037,7 +3037,7 @@ function WalletScanGate({
           alt="Logo FIX"
           className={`mx-auto size-20 ${failed ? '' : 'motion-safe:animate-spin [animation-duration:2.8s]'}`}
           height={80}
-          priority
+          preload
           src="/fixedcoin-logo.png"
           width={80}
         />

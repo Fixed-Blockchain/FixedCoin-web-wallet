@@ -141,7 +141,7 @@ export function InfoTip({ children, label }: InfoTipProps) {
         aria-describedby={open ? tooltipId : undefined}
         aria-expanded={open}
         aria-label={label}
-        className="grid size-8 place-items-center rounded-full border border-white/10 bg-white/[0.035] text-stone-500 outline-none transition-all duration-200 hover:-transtone-y-0.5 hover:border-amber-300/30 hover:bg-amber-300/10 hover:text-amber-200 focus-visible:border-amber-300/50 focus-visible:ring-4 focus-visible:ring-amber-300/10"
+        className="grid size-8 place-items-center rounded-full border border-white/10 bg-white/[0.035] text-stone-500 outline-none transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-300/30 hover:bg-amber-300/10 hover:text-amber-200 focus-visible:border-amber-300/50 focus-visible:ring-4 focus-visible:ring-amber-300/10"
         onBlur={(event) => {
           if (!rootRef.current?.contains(event.relatedTarget)) closeTooltip();
         }}
