@@ -14,20 +14,20 @@ const WALLET_RELEASE_URL = `https://github.com/Fixed-Blockchain/FixedCoin-web-wa
 
 function FixedCoinBrand() {
   return (
-    <div className="group/brand flex items-center gap-3">
+    <div className="group/brand flex items-center gap-3 sm:gap-4">
       <Image
         alt="FixedCoin"
-        className="size-11 rounded-2xl border border-amber-200/[0.12] bg-[#171209] object-contain p-2 transition-transform duration-300 group-hover/brand:-rotate-3 group-hover/brand:scale-105 motion-reduce:transition-none"
-        height={40}
+        className="size-12 object-contain drop-shadow-[0_0_18px_rgba(224,169,40,0.18)] transition-transform duration-300 group-hover/brand:-rotate-3 group-hover/brand:scale-105 motion-reduce:transition-none sm:size-14"
+        height={56}
         preload
         src="/fixedcoin-logo.png"
-        width={40}
+        width={56}
       />
-      <div>
-        <p className="text-[15px] font-black leading-none tracking-[0.2em] text-white">
+      <div className="border-l border-[#f2c95c]/45 pl-3 sm:pl-4">
+        <p className="text-base font-black leading-none tracking-[0.2em] text-[#f2c95c] sm:text-lg">
           FIX
         </p>
-        <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-stone-500">
+        <p className="mt-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-[#d9e2e8]">
           Web Wallet
         </p>
       </div>
@@ -40,16 +40,16 @@ function WalletPage() {
 
   return (
     <main className="wallet-canvas flex min-h-dvh flex-col bg-background text-foreground">
-      <header className="sticky top-0 z-50 border-b border-amber-200/[0.08] bg-[#120f0a]/96">
-        <div className="mx-auto flex h-18 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <header className="sticky top-0 z-50 border-b border-[#46bfd1]/15 bg-[#080d13]/95 shadow-[0_12px_40px_rgba(0,0,0,0.18)] backdrop-blur-xl">
+        <div className="mx-auto flex min-h-20 max-w-6xl items-center justify-between gap-3 px-4 py-2 sm:px-6">
           <FixedCoinBrand />
           <div className="flex items-center gap-2">
             <WalletLanguageSelect id="header-wallet-language" />
             <div
-              className="flex items-center gap-2 rounded-full border border-emerald-300/10 bg-emerald-300/[0.045] px-2 py-1.5 text-[11px] font-bold text-emerald-100/80 sm:px-3"
+              className="flex min-h-11 items-center gap-2 rounded-xl border border-[#36c98f]/20 bg-[#36c98f]/8 px-3 text-[11px] font-bold text-[#73e6b3]"
               title={t('app.ready')}
             >
-              <span className="size-2 rounded-full bg-emerald-400" />
+              <span className="size-2 rounded-full bg-[#36c98f] shadow-[0_0_10px_rgba(54,201,143,0.6)]" />
               <span className="hidden sm:inline">{t('app.ready')}</span>
             </div>
           </div>
@@ -58,10 +58,10 @@ function WalletPage() {
 
       <WalletAccessWorkspace />
 
-      <footer className="mt-auto border-t border-amber-200/[0.08] px-4 py-6 sm:px-6">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-1 text-center text-sm font-semibold text-stone-400">
+      <footer className="wallet-footer mt-auto border-t border-[#46bfd1]/12 bg-[#080d13]/55 px-4 py-6 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-1 text-center text-sm font-semibold text-[#91a0ac]">
           <a
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-3 transition-colors hover:text-amber-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-3 transition-colors hover:text-[#f2c95c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2c95c]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             href="https://github.com/Fixed-Blockchain/FixedCoin-web-wallet"
             rel="noopener noreferrer"
             target="_blank"
@@ -71,7 +71,7 @@ function WalletPage() {
           </a>
           <span aria-hidden="true">{'·'}</span>
           <a
-            className="inline-flex min-h-11 items-center justify-center rounded-full px-3 transition-colors hover:text-amber-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="inline-flex min-h-11 items-center justify-center rounded-xl px-3 transition-colors hover:text-[#f2c95c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f2c95c]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             href={WALLET_RELEASE_URL}
             rel="noopener noreferrer"
             target="_blank"

@@ -112,7 +112,7 @@ import {
 } from '@/src/wallet/transparentSend';
 
 const INPUT_CLASS =
-  'mt-2 min-h-12 w-full rounded-2xl border border-amber-200/[0.12] bg-[#1b160e] px-4 py-3 text-sm text-stone-100 outline-none transition-all duration-200 placeholder:text-stone-600 hover:border-amber-200/20 hover:bg-[#211a10] focus:border-amber-300/55 focus:ring-4 focus:ring-amber-300/10';
+  'mt-2 min-h-12 w-full rounded-xl border border-cyan-200/[0.12] bg-[#0b1620] px-4 py-3 text-sm text-stone-100 outline-none transition-all duration-200 placeholder:text-[#718391] hover:border-cyan-200/20 hover:bg-[#102231] focus:border-amber-300/55 focus:ring-4 focus:ring-amber-300/10';
 const ACCOUNT_ZERO_EXTERNAL: Omit<HdAddressSequence, 'accountKey'> = {
   account: 0,
   branch: 'external',
@@ -211,7 +211,7 @@ const networkTone = (state?: WalletNetworkState) => {
   if (state?.status === 'stale' || state?.status === 'error') {
     return 'border-amber-300/30 bg-amber-300/10 text-amber-100';
   }
-  return 'border-amber-300/25 bg-amber-300/10 text-amber-100';
+  return 'border-cyan-300/25 bg-cyan-300/[0.08] text-cyan-100';
 };
 
 const networkLabel = (state: WalletNetworkState | undefined, t: Translator) => {
@@ -1427,8 +1427,52 @@ export function WalletDashboard({
     setBackupError(undefined);
   }
 
+  const renderNavigation = (mobile: boolean) => (
+    <nav
+      aria-label={t('nav.aria')}
+      className={
+        mobile
+          ? 'fixed inset-x-0 bottom-0 z-40 grid gap-0 border-t border-cyan-200/[0.14] bg-[#071019]/[0.98] px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-18px_44px_rgba(0,0,0,0.38)] backdrop-blur-xl lg:hidden'
+          : 'hidden gap-1.5 rounded-2xl border border-cyan-200/[0.14] bg-[#0d1822]/95 p-1.5 lg:grid'
+      }
+      style={{
+        gridTemplateColumns: `repeat(${navigation.length}, minmax(0, 1fr))`,
+      }}
+    >
+      {navigation.map(({ key, label, icon: Icon }) => (
+        <button
+          key={key}
+          type="button"
+          aria-label={label}
+          aria-current={activeView === key ? 'page' : undefined}
+          onClick={() => setActiveView(key)}
+          className={`group/nav flex min-w-0 items-center justify-center rounded-xl border font-bold tracking-tight outline-none transition-all duration-200 ${
+            mobile
+              ? 'min-h-14 flex-col gap-1 px-0.5 py-2 text-[10px] min-[375px]:text-[11px]'
+              : 'min-h-12 flex-row gap-2 px-2 py-2 text-xs'
+          } ${
+            activeView === key
+              ? 'border-amber-300/35 bg-gradient-to-b from-[#f2c95c] to-[#c98d16] text-[#080b10] shadow-[0_8px_24px_rgba(224,169,40,0.12)]'
+              : 'border-transparent text-stone-400 hover:-translate-y-0.5 hover:border-cyan-200/[0.08] hover:bg-cyan-200/[0.035] hover:text-stone-100 focus-visible:ring-4 focus-visible:ring-amber-300/15'
+          }`}
+        >
+          <Icon
+            className="size-4 shrink-0 transition-transform duration-200 group-hover/nav:scale-110"
+            aria-hidden="true"
+          />
+          <span className="max-w-full hyphens-auto text-center leading-tight [overflow-wrap:anywhere]">
+            {label}
+          </span>
+        </button>
+      ))}
+    </nav>
+  );
+
   return (
-    <div className="space-y-5">
+    <div
+      className="space-y-5 pb-[calc(5.75rem+env(safe-area-inset-bottom))] lg:pb-0"
+      data-wallet-dashboard
+    >
       {manualSyncCooldownOpen ? (
         <ManualSyncCooldownDialog
           onClose={() => setManualSyncCooldownOpen(false)}
@@ -1454,26 +1498,26 @@ export function WalletDashboard({
           receipt={broadcastReceipt}
         />
       ) : null}
-      <div className="glass-panel subtle-shine flex items-center justify-between gap-3 rounded-3xl p-3.5 sm:p-4">
-        <div className="flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-2xl border border-emerald-300/10 bg-emerald-300/[0.07] text-emerald-200">
+      <div className="glass-panel subtle-shine grid gap-3 rounded-2xl border-cyan-200/[0.12] p-3.5 sm:flex sm:items-center sm:justify-between sm:p-4">
+        <div className="flex min-w-0 items-center gap-3">
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-cyan-300/15 bg-cyan-300/[0.07] text-cyan-200">
             <ShieldCheck className="size-4" aria-hidden="true" />
           </span>
-          <div>
+          <div className="min-w-0">
             <p className="text-sm font-black tracking-tight text-white">
               {t(sourceLabelKey(summary))}
             </p>
-            <p className="mt-0.5 text-[11px] text-stone-500">
+            <p className="mt-0.5 text-[11px] text-cyan-100/55">
               {t('app.connectionEstablished')}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="flex min-w-0 items-center justify-between gap-1.5 sm:justify-end">
           <Badge
             variant="outline"
-            className={`hidden sm:inline-flex ${networkTone(network)}`}
+            className={`inline-flex min-w-0 max-w-full ${networkTone(network)}`}
           >
-            {networkLabel(network, t)}
+            <span className="truncate">{networkLabel(network, t)}</span>
           </Badge>
           <Button
             aria-label={t('wallet.refresh')}
@@ -1490,32 +1534,7 @@ export function WalletDashboard({
         </div>
       </div>
 
-      <nav
-        aria-label={t('nav.aria')}
-        className="grid gap-1 rounded-3xl border border-amber-200/[0.10] bg-[#20190d] p-1.5 sm:gap-1.5"
-        style={{
-          gridTemplateColumns: `repeat(${navigation.length}, minmax(0, 1fr))`,
-        }}
-      >
-        {navigation.map(({ key, label, icon: Icon }) => (
-          <button
-            key={key}
-            type="button"
-            aria-label={label}
-            aria-current={activeView === key ? 'page' : undefined}
-            onClick={() => setActiveView(key)}
-            className={`group/nav flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-2xl border px-0.5 py-2 text-[9px] font-bold tracking-tight outline-none transition-all duration-200 min-[375px]:text-[10px] sm:text-xs lg:min-h-12 lg:flex-row lg:gap-2 lg:px-2 ${activeView === key ? 'border-amber-300/20 bg-[#a96408] text-white' : 'border-transparent text-stone-500 hover:-translate-y-0.5 hover:bg-white/[0.04] hover:text-stone-200 focus-visible:ring-4 focus-visible:ring-amber-300/10'}`}
-          >
-            <Icon
-              className="size-4 shrink-0 transition-transform duration-200 group-hover/nav:scale-110"
-              aria-hidden="true"
-            />
-            <span className="max-w-full hyphens-auto text-center leading-tight [overflow-wrap:anywhere]">
-              {label}
-            </span>
-          </button>
-        ))}
-      </nav>
+      {renderNavigation(false)}
 
       {localError || network?.errorCode ? (
         <div
@@ -1542,13 +1561,13 @@ export function WalletDashboard({
           <CardContent className="px-5 pb-5">
             <div className="divide-y divide-white/[0.06] text-sm">
               <div className="flex flex-col items-stretch gap-2 py-3 first:pt-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-                <label className="text-stone-500" htmlFor="auto-lock-minutes">
+                <label className="text-[#91a0ac]" htmlFor="auto-lock-minutes">
                   {t('settings.lock')}
                 </label>
                 <select
                   id="auto-lock-minutes"
                   aria-label={t('settings.lock')}
-                  className="min-h-10 w-full rounded-xl border border-white/10 bg-[#1b160e] px-3 text-sm font-semibold text-stone-100 outline-none transition hover:border-amber-200/20 focus:border-amber-300/50 focus:ring-4 focus:ring-amber-300/10 sm:w-auto"
+                  className="min-h-11 w-full rounded-xl border border-cyan-200/10 bg-[#0b1620] px-3 text-sm font-semibold text-stone-100 outline-none transition hover:border-cyan-200/20 focus:border-amber-300/50 focus:ring-4 focus:ring-amber-300/10 sm:w-auto"
                   value={autoLockMinutes}
                   onChange={(event) => {
                     const minutes = Number(event.currentTarget.value);
@@ -1568,7 +1587,7 @@ export function WalletDashboard({
               </div>
               <div className="flex flex-col items-stretch gap-2 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                 <label
-                  className="text-stone-500"
+                  className="text-[#91a0ac]"
                   htmlFor="background-lock-seconds"
                 >
                   {t('settings.backgroundLock')}
@@ -1576,7 +1595,7 @@ export function WalletDashboard({
                 <select
                   id="background-lock-seconds"
                   aria-label={t('settings.backgroundLock')}
-                  className="min-h-10 w-full rounded-xl border border-white/10 bg-[#1b160e] px-3 text-sm font-semibold text-stone-100 outline-none transition hover:border-amber-200/20 focus:border-amber-300/50 focus:ring-4 focus:ring-amber-300/10 sm:w-auto"
+                  className="min-h-11 w-full rounded-xl border border-cyan-200/10 bg-[#0b1620] px-3 text-sm font-semibold text-stone-100 outline-none transition hover:border-cyan-200/20 focus:border-amber-300/50 focus:ring-4 focus:ring-amber-300/10 sm:w-auto"
                   value={backgroundLockSeconds}
                   onChange={(event) => {
                     const seconds = Number(event.currentTarget.value);
@@ -1667,7 +1686,7 @@ export function WalletDashboard({
                         { label: t('access.passwordLabel') },
                       )}
                       aria-pressed={backupPasswordVisible}
-                      className="absolute inset-y-0 right-1 grid w-10 place-items-center rounded-lg text-stone-500 transition hover:bg-white/[0.05] hover:text-stone-200"
+                      className="absolute inset-y-0 right-1 grid w-10 place-items-center rounded-lg text-[#91a0ac] transition hover:bg-white/[0.05] hover:text-stone-200"
                       onClick={() =>
                         setBackupPasswordVisible((visible) => !visible)
                       }
@@ -1712,7 +1731,7 @@ export function WalletDashboard({
               </form>
             ) : !revealedMnemonic ? (
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <p className="text-xs leading-5 text-stone-500">
+                <p className="text-xs leading-5 text-[#91a0ac]">
                   {t('backup.explicitReveal')}
                 </p>
                 <Button
@@ -1740,7 +1759,7 @@ export function WalletDashboard({
                       key={`${index}-${word}`}
                       className="rounded-lg border border-white/8 bg-stone-950/75 px-3 py-2 font-mono text-sm text-stone-100"
                     >
-                      <span className="mr-2 text-[10px] text-stone-600">
+                      <span className="mr-2 text-[10px] text-[#718391]">
                         {index + 1}
                       </span>
                       {word}
@@ -1775,15 +1794,19 @@ export function WalletDashboard({
 
       {activeView === 'home' ? (
         <div className="grid gap-5">
-          <Card className="glass-panel subtle-shine relative border-amber-300/15 bg-transparent py-0">
-            <CardContent className="relative p-7 sm:p-10">
+          <Card className="glass-panel subtle-shine relative border-amber-300/25 bg-transparent py-0 shadow-[0_24px_80px_rgba(0,0,0,0.22)]">
+            <CardContent className="relative overflow-hidden p-6 sm:p-10">
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-x-[12%] top-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent"
+              />
               <div className="text-center">
-                <p className="text-xs font-bold uppercase tracking-[0.14em] text-stone-500">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-cyan-100/50">
                   {t('home.totalBalance')}
                 </p>
                 <WalletBalance satoshis={snapshot.balanceSats} />
                 {snapshot.spendableSats !== snapshot.balanceSats ? (
-                  <p className="mt-3 text-xs text-stone-500">
+                  <p className="mt-3 text-xs text-stone-400">
                     {t('home.spendable', {
                       amount: formatFixedCoinAmount(snapshot.spendableSats),
                     })}
@@ -1807,10 +1830,10 @@ export function WalletDashboard({
                 ) : null}
               </div>
 
-              <div className="mx-auto mt-7 flex max-w-md flex-wrap justify-center gap-3">
+              <div className="mx-auto mt-8 grid max-w-md grid-cols-1 gap-3 min-[380px]:grid-cols-2">
                 {receiveAvailable ? (
                   <Button
-                    className="min-w-32"
+                    className="w-full"
                     size="lg"
                     type="button"
                     onClick={() => setActiveView('receive')}
@@ -1820,7 +1843,7 @@ export function WalletDashboard({
                   </Button>
                 ) : null}
                 <Button
-                  className="min-w-32"
+                  className="w-full"
                   size="lg"
                   type="button"
                   variant="outline"
@@ -1847,7 +1870,7 @@ export function WalletDashboard({
                   </div>
                   <Badge
                     variant="outline"
-                    className="border-white/10 text-stone-500"
+                    className="border-white/10 text-[#91a0ac]"
                   >
                     {t('consolidation.spendable', {
                       count: spendableUtxoCount,
@@ -1923,7 +1946,7 @@ export function WalletDashboard({
                       </div>
                     ) : (
                       <div className="mt-4">
-                        <p className="text-xs leading-5 text-stone-500">
+                        <p className="text-xs leading-5 text-[#91a0ac]">
                           {t('consolidation.progress', {
                             current: broadcastedConsolidationTxids.length,
                             total: preparedConsolidation.transactions.length,
@@ -2011,7 +2034,7 @@ export function WalletDashboard({
                         <>
                           {t('receive.hdInfo')}
                           {receivePath ? (
-                            <span className="mt-2 block font-mono text-[10px] text-stone-500">
+                            <span className="mt-2 block font-mono text-[10px] text-[#91a0ac]">
                               {t('receive.displayedPath', {
                                 path: receivePath,
                                 index:
@@ -2108,7 +2131,7 @@ export function WalletDashboard({
                     </svg>
                   </div>
                 ) : (
-                  <p className="flex min-h-20 items-center justify-center text-sm text-stone-500">
+                  <p className="flex min-h-20 items-center justify-center text-sm text-[#91a0ac]">
                     {t('receive.syncRequired')}
                   </p>
                 )}
@@ -2157,17 +2180,17 @@ export function WalletDashboard({
                 <CardTitle className="text-base text-white">
                   {t('settings.scanDetails')}
                 </CardTitle>
-                <p className="mt-1 text-xs text-stone-500">
+                <p className="mt-1 text-xs text-[#91a0ac]">
                   {t('settings.scanHint')}
                 </p>
               </div>
               <ChevronDown
-                className="size-4 text-stone-500 transition-transform duration-200 group-open/details:rotate-180"
+                className="size-4 text-[#91a0ac] transition-transform duration-200 group-open/details:rotate-180"
                 aria-hidden="true"
               />
             </summary>
             <CardContent className="border-t border-white/[0.06] px-5 pt-4 pb-5">
-              <p className="mb-4 text-xs leading-5 text-stone-500">
+              <p className="mb-4 text-xs leading-5 text-[#91a0ac]">
                 {t('settings.scanDescription')}
               </p>
               {summary.hd && coverage.length > 0 ? (
@@ -2184,13 +2207,13 @@ export function WalletDashboard({
                             family: familyFor(item.accountKey).label,
                           })}
                         </p>
-                        <p className="mt-1 text-[10px] text-stone-500">
+                        <p className="mt-1 text-[10px] text-[#91a0ac]">
                           {item.branch === 'external'
                             ? t('settings.externalBranch')
                             : t('settings.internalBranch')}
                         </p>
                       </div>
-                      <div className="text-right font-mono text-[10px] text-stone-500">
+                      <div className="text-right font-mono text-[10px] text-[#91a0ac]">
                         <p>
                           {t('settings.scannedRange', {
                             index: item.highestScannedIndex,
@@ -2206,7 +2229,7 @@ export function WalletDashboard({
                   ))}
                 </div>
               ) : (
-                <p className="text-sm leading-6 text-stone-500">
+                <p className="text-sm leading-6 text-[#91a0ac]">
                   {summary.hd
                     ? t('settings.coveragePending')
                     : t('settings.singleKeyNoGap')}
@@ -2372,7 +2395,7 @@ export function WalletDashboard({
                       <p className="font-semibold text-stone-300">
                         {t('send.networkFees')}
                       </p>
-                      <p className="mt-1 text-stone-500">
+                      <p className="mt-1 text-[#91a0ac]">
                         {customFeeEnabled
                           ? `${feeRate || '—'} sats/vByte · ${t('send.customValue')}`
                           : `${t('send.automatic')} · ${DEFAULT_FEE_PER_VBYTE.toString()} sats/vByte`}
@@ -2386,7 +2409,7 @@ export function WalletDashboard({
                     </Badge>
                   </div>
                   <details className="mt-2 border-t border-white/[0.06] pt-2">
-                    <summary className="cursor-pointer select-none font-semibold text-stone-500 hover:text-stone-300">
+                    <summary className="cursor-pointer select-none font-semibold text-[#91a0ac] hover:text-stone-300">
                       {t('send.advanced')}
                     </summary>
                     <label className="mt-3 flex cursor-pointer items-start gap-2 text-stone-400">
@@ -2515,7 +2538,7 @@ export function WalletDashboard({
                 <p className="mt-2 break-all font-mono text-xs text-stone-400">
                   {preparedSend.txid}
                 </p>
-                <p className="mt-2 text-xs leading-5 text-stone-500">
+                <p className="mt-2 text-xs leading-5 text-[#91a0ac]">
                   {t('send.signedSummary', {
                     inputs: preparedSend.inputCount,
                     outputs: preparedSend.outputCount,
@@ -2568,18 +2591,18 @@ export function WalletDashboard({
                     <CardTitle className="text-base text-white">
                       {t('settings.addressSearch')}
                     </CardTitle>
-                    <p className="mt-1 text-xs text-stone-500">
+                    <p className="mt-1 text-xs text-[#91a0ac]">
                       {t('settings.addressSearchHint')}
                     </p>
                   </div>
                 </div>
                 <ChevronDown
-                  className="size-4 text-stone-500 transition-transform duration-200 group-open/search:rotate-180"
+                  className="size-4 text-[#91a0ac] transition-transform duration-200 group-open/search:rotate-180"
                   aria-hidden="true"
                 />
               </summary>
               <CardContent className="border-t border-white/[0.06] px-5 pt-4 pb-5">
-                <p className="text-xs leading-5 text-stone-500">
+                <p className="text-xs leading-5 text-[#91a0ac]">
                   {t('settings.addressSearchBody')}
                 </p>
                 <form
@@ -2675,6 +2698,7 @@ export function WalletDashboard({
           </Card>
         </div>
       ) : null}
+      {renderNavigation(true)}
     </div>
   );
 }
@@ -2732,14 +2756,14 @@ function TransactionBroadcastDialog({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-stone-950/80 p-4 backdrop-blur-md"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04080d]/85 p-4 backdrop-blur-md"
       role="presentation"
     >
       <dialog
         open
         aria-labelledby="transaction-broadcast-title"
         aria-modal="true"
-        className="relative m-0 max-h-[calc(100dvh-2rem)] w-full max-w-lg overflow-y-auto rounded-[2rem] border border-amber-200/[0.14] bg-[#231b10] p-0 text-stone-100"
+        className="relative m-0 max-h-[calc(100dvh-2rem)] w-full max-w-lg overflow-y-auto rounded-2xl border border-cyan-200/[0.14] bg-[#0b1620] p-0 text-stone-100 shadow-[0_28px_90px_rgba(0,0,0,0.55)]"
       >
         <div className="flex items-start justify-between gap-4 border-b border-white/[0.07] px-5 py-5 sm:px-6">
           <div className="flex min-w-0 items-center gap-3">
@@ -2765,7 +2789,7 @@ function TransactionBroadcastDialog({
                       : t('transaction.rbfAccepted')
                     : t('transaction.broadcasted')}
               </h2>
-              <p className="mt-1 text-xs text-stone-500">
+              <p className="mt-1 text-xs text-[#91a0ac]">
                 {replacementFailed
                   ? t('transaction.originalConfirmed')
                   : isConfirmed
@@ -2789,7 +2813,7 @@ function TransactionBroadcastDialog({
 
         <div className="space-y-4 px-5 py-5 sm:px-6 sm:py-6">
           <div className="rounded-2xl border border-white/[0.08] bg-stone-950/55 p-4">
-            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-stone-500">
+            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#91a0ac]">
               {t('transaction.id')}
             </p>
             <a
@@ -2829,7 +2853,7 @@ function TransactionBroadcastDialog({
                 {t('transaction.progressMempool')}
               </span>
               <span
-                className={`text-right transition-colors ${replacementFailed ? 'text-amber-200' : isConfirmed ? 'text-emerald-200' : 'text-stone-600'}`}
+                className={`text-right transition-colors ${replacementFailed ? 'text-amber-200' : isConfirmed ? 'text-emerald-200' : 'text-[#718391]'}`}
               >
                 {t('transaction.progressConfirmed')}
               </span>
@@ -2897,7 +2921,7 @@ function TransactionBroadcastDialog({
             </div>
           ) : canAttemptRbf ? (
             <div className="flex flex-col gap-3 rounded-2xl border border-white/[0.07] bg-white/[0.018] p-4 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-xs leading-5 text-stone-500">
+              <p className="text-xs leading-5 text-[#91a0ac]">
                 {t('transaction.rbfIntro')}
               </p>
               <Button
@@ -2959,11 +2983,11 @@ function ManualSyncCooldownDialog({
   const { t } = useI18n();
   const waiting = secondsRemaining > 0;
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#120f0a]/80 p-4 backdrop-blur-sm">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#04080d]/85 p-4 backdrop-blur-sm">
       <dialog
         aria-labelledby="manual-sync-cooldown-title"
         aria-modal="true"
-        className="glass-panel relative m-0 max-h-[calc(100dvh-2rem)] w-full max-w-sm overflow-y-auto rounded-3xl border border-amber-200/[0.12] p-0 text-stone-100"
+        className="glass-panel relative m-0 max-h-[calc(100dvh-2rem)] w-full max-w-sm overflow-y-auto rounded-2xl border border-cyan-200/[0.12] p-0 text-stone-100 shadow-[0_28px_90px_rgba(0,0,0,0.55)]"
         open
       >
         <div className="p-6">
@@ -3045,18 +3069,18 @@ function WalletScanGate({
           {failed ? t('scan.failedTitle') : t('scan.title')}
         </h2>
         {failed || singleKey ? (
-          <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-stone-500">
+          <p className="mx-auto mt-2 max-w-sm text-sm leading-6 text-[#91a0ac]">
             {failed ? t('scan.failedBody') : t('scan.singleKeyBody')}
           </p>
         ) : null}
 
         <div className="mt-7 overflow-hidden rounded-full bg-white/[0.07]">
           <div
-            className={`h-1.5 rounded-full transition-[width] duration-500 ${failed ? 'bg-red-400' : 'bg-[#e9a012]'}`}
+            className={`h-1.5 rounded-full transition-[width] duration-500 ${failed ? 'bg-red-400' : 'bg-[#e0a928]'}`}
             style={{ width: `${failed ? 100 : Math.max(4, percent)}%` }}
           />
         </div>
-        <div className="mt-3 text-center text-[11px] text-stone-600">
+        <div className="mt-3 text-center text-[11px] text-[#718391]">
           <span>{networkLabel(network, t)}</span>
         </div>
 
@@ -3088,7 +3112,7 @@ function WalletScanGate({
 function SendMetric({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-white/8 bg-stone-950/45 p-3">
-      <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-stone-600">
+      <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#718391]">
         {label}
       </p>
       <p className="mt-2 font-mono text-sm font-bold text-stone-100">{value}</p>

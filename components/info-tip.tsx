@@ -141,7 +141,7 @@ export function InfoTip({ children, label }: InfoTipProps) {
         aria-describedby={open ? tooltipId : undefined}
         aria-expanded={open}
         aria-label={label}
-        className="grid size-8 place-items-center rounded-full border border-white/10 bg-white/[0.035] text-stone-500 outline-none transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-300/30 hover:bg-amber-300/10 hover:text-amber-200 focus-visible:border-amber-300/50 focus-visible:ring-4 focus-visible:ring-amber-300/10"
+        className="grid size-11 place-items-center rounded-xl border border-[#6b9ab4]/25 bg-[#111a24] text-[#91a0ac] outline-none transition-all duration-200 hover:-translate-y-0.5 hover:border-[#46bfd1]/45 hover:bg-[#46bfd1]/10 hover:text-[#8fe6f2] focus-visible:border-[#f2c95c]/60 focus-visible:ring-4 focus-visible:ring-[#f2c95c]/15"
         onBlur={(event) => {
           if (!rootRef.current?.contains(event.relatedTarget)) closeTooltip();
         }}
@@ -164,7 +164,7 @@ export function InfoTip({ children, label }: InfoTipProps) {
         id={tooltipId}
         role="tooltip"
         aria-hidden={!open}
-        className={`fixed z-50 max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl border border-amber-200/15 bg-[#211a10] p-3 text-left text-xs font-medium leading-5 text-stone-300 transition-opacity duration-150 ${open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
+        className={`fixed z-50 max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-xl border border-[#46bfd1]/25 bg-[#111a24] p-3 text-left text-xs font-medium leading-5 text-[#c5d0d8] shadow-[0_18px_48px_rgba(0,0,0,0.38)] transition-opacity duration-150 ${open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
         style={position}
       >
         {children}

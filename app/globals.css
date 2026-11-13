@@ -49,38 +49,46 @@
 
 :root {
   color-scheme: dark;
-  --background: oklch(0.105 0.022 78);
-  --foreground: oklch(0.96 0.01 78);
-  --card: oklch(0.155 0.029 78);
-  --card-foreground: oklch(0.96 0.01 78);
-  --popover: oklch(0.185 0.029 78);
-  --popover-foreground: oklch(0.96 0.01 78);
-  --primary: #b87309;
-  --primary-foreground: #ffffff;
-  --secondary: oklch(0.235 0.03 78);
-  --secondary-foreground: oklch(0.94 0.012 78);
-  --muted: oklch(0.225 0.026 78);
-  --muted-foreground: oklch(0.68 0.025 78);
-  --accent: oklch(0.25 0.04 78);
-  --accent-foreground: oklch(0.96 0.01 78);
+  --background: #080b10;
+  --foreground: #edf2f5;
+  --card: #101620;
+  --card-foreground: #edf2f5;
+  --popover: #141d28;
+  --popover-foreground: #edf2f5;
+  --primary: #e0a928;
+  --primary-foreground: #080b10;
+  --secondary: #17202a;
+  --secondary-foreground: #d9e2e8;
+  --muted: #18232e;
+  --muted-foreground: #91a0ac;
+  --accent: #1d2b37;
+  --accent-foreground: #edf2f5;
   --destructive: oklch(0.66 0.2 25);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 13%);
-  --ring: #f7bd46;
-  --chart-1: oklch(0.79 0.12 78);
+  --border: rgb(118 155 176 / 18%);
+  --input: rgb(118 155 176 / 24%);
+  --ring: #f2c95c;
+  --chart-1: #e0a928;
   --chart-2: oklch(0.78 0.15 155);
-  --chart-3: oklch(0.82 0.13 78);
+  --chart-3: #46bfd1;
   --chart-4: oklch(0.7 0.15 300);
   --chart-5: oklch(0.7 0.19 25);
-  --radius: 1rem;
-  --sidebar: oklch(0.16 0.028 78);
-  --sidebar-foreground: oklch(0.93 0.015 78);
-  --sidebar-primary: oklch(0.79 0.12 78);
-  --sidebar-primary-foreground: oklch(0.16 0.032 78);
-  --sidebar-accent: oklch(0.23 0.035 78);
-  --sidebar-accent-foreground: oklch(0.96 0.01 78);
-  --sidebar-border: oklch(1 0 0 / 9%);
-  --sidebar-ring: oklch(0.79 0.12 78);
+  --radius: 0.75rem;
+  --sidebar: #0d141c;
+  --sidebar-foreground: #d9e2e8;
+  --sidebar-primary: #e0a928;
+  --sidebar-primary-foreground: #080b10;
+  --sidebar-accent: #172532;
+  --sidebar-accent-foreground: #edf2f5;
+  --sidebar-border: rgb(70 191 209 / 14%);
+  --sidebar-ring: #f2c95c;
+  --wallet-canvas: #080b10;
+  --wallet-surface: #101620;
+  --wallet-surface-raised: #17202a;
+  --wallet-gold: #e0a928;
+  --wallet-gold-bright: #f2c95c;
+  --wallet-network: #46bfd1;
+  --wallet-success: #36c98f;
+  --wallet-text-muted: #91a0ac;
 }
 
 @layer base {
@@ -113,19 +121,32 @@
     padding-left: env(safe-area-inset-left, 0px);
     font-family: var(--font-geist-sans), Arial, sans-serif;
     touch-action: manipulation;
-    background-image: linear-gradient(180deg, #171108 0%, #120e08 52%, #100d08 100%);
+    background-color: var(--wallet-canvas);
+    background-image:
+      radial-gradient(circle at 8% 0%, rgb(70 191 209 / 8%), transparent 28rem),
+      radial-gradient(
+        circle at 92% 22%,
+        rgb(224 169 40 / 7%),
+        transparent 24rem
+      ),
+      linear-gradient(180deg, #0a0f15 0%, #080b10 58%, #070a0e 100%);
     background-attachment: fixed;
   }
 
   ::selection {
-    color: oklch(0.16 0.032 78);
-    background: oklch(0.79 0.12 78);
+    color: #080b10;
+    background: #f2c95c;
   }
 }
 
 @keyframes fixedcoin-float {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -10px, 0); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
 }
 
 @layer components {
@@ -140,9 +161,57 @@
     overflow-y: visible;
   }
 
+  .wallet-canvas::before,
+  .wallet-canvas::after {
+    position: fixed;
+    z-index: -1;
+    width: min(36rem, 52vw);
+    height: 20rem;
+    pointer-events: none;
+    content: '';
+    opacity: 0.34;
+    background-image:
+      linear-gradient(
+        90deg,
+        transparent 0 8%,
+        rgb(224 169 40 / 24%) 8% 8.25%,
+        transparent 8.25% 100%
+      ),
+      linear-gradient(
+        0deg,
+        transparent 0 28%,
+        rgb(70 191 209 / 18%) 28% 28.3%,
+        transparent 28.3% 100%
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent 0 3.8rem,
+        rgb(70 191 209 / 10%) 3.8rem calc(3.8rem + 1px)
+      );
+    mask-image: linear-gradient(90deg, #000, transparent 88%);
+  }
+
+  .wallet-canvas::before {
+    top: 5rem;
+    left: 0;
+  }
+
+  .wallet-canvas::after {
+    right: 0;
+    bottom: 4rem;
+    transform: rotate(180deg);
+  }
+
   .glass-panel {
-    border: 1px solid rgba(235, 189, 100, 0.13);
-    background: linear-gradient(145deg, rgba(29, 23, 13, 0.98), rgba(22, 17, 10, 0.98));
+    border: 1px solid rgb(95 139 162 / 22%);
+    background: linear-gradient(
+      145deg,
+      rgb(23 32 42 / 97%),
+      rgb(13 20 28 / 98%)
+    );
+    box-shadow:
+      0 24px 70px rgb(0 0 0 / 24%),
+      inset 0 1px 0 rgb(255 255 255 / 3%);
   }
 
   .subtle-shine {
@@ -154,7 +223,24 @@
     inset: 0 8% auto;
     height: 1px;
     content: '';
-    background: linear-gradient(90deg, transparent, rgba(252, 193, 79, 0.38), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(70 191 209 / 35%),
+      rgb(242 201 92 / 55%),
+      transparent
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
@@ -167,5 +253,17 @@
 
   body {
     background-attachment: scroll;
+  }
+
+  .wallet-canvas::before,
+  .wallet-canvas::after {
+    width: 80vw;
+    opacity: 0.18;
+  }
+}
+
+@media (max-width: 1023px) {
+  .wallet-canvas:has([data-wallet-dashboard]) .wallet-footer {
+    padding-bottom: calc(6.5rem + env(safe-area-inset-bottom, 0px));
   }
 }

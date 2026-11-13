@@ -39,7 +39,7 @@ export function WalletLanguageSelect({ id }: WalletLanguageSelectProps) {
       id={listboxId}
       role="menu"
       aria-label={t('settings.languageLabel')}
-      className="absolute top-full right-0 z-[80] mt-2 max-h-[min(22rem,calc(100vh-6rem))] w-48 overflow-y-auto rounded-2xl border border-amber-200/15 bg-[#211a10] p-1.5"
+      className="absolute top-full right-0 z-[80] mt-2 max-h-[min(22rem,calc(100vh-6rem))] w-48 overflow-y-auto rounded-xl border border-[#46bfd1]/25 bg-[#111a24] p-1.5 shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
     >
       {WALLET_LANGUAGES.map(({ code, label }) => {
         const selected = code === language;
@@ -49,7 +49,7 @@ export function WalletLanguageSelect({ id }: WalletLanguageSelectProps) {
             type="button"
             role="menuitemradio"
             aria-checked={selected}
-            className={`flex min-h-10 w-full items-center justify-between gap-3 rounded-xl px-3 py-2 text-left text-sm font-semibold outline-none transition-colors duration-150 ${selected ? 'bg-amber-400/18 text-amber-100' : 'text-stone-300 hover:bg-white/[0.065] hover:text-white focus-visible:bg-amber-300/12 focus-visible:text-amber-100'}`}
+            className={`flex min-h-11 w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left text-sm font-semibold outline-none transition-colors duration-150 ${selected ? 'bg-[#e0a928]/18 text-[#f6d77b]' : 'text-[#c5d0d8] hover:bg-[#46bfd1]/10 hover:text-white focus-visible:bg-[#e0a928]/12 focus-visible:text-[#f6d77b]'}`}
             onClick={() => {
               setLanguage(code);
               setOpen(false);
@@ -57,7 +57,7 @@ export function WalletLanguageSelect({ id }: WalletLanguageSelectProps) {
           >
             <span>{label}</span>
             {selected ? (
-              <Check className="size-4 text-amber-300" aria-hidden="true" />
+              <Check className="size-4 text-[#f2c95c]" aria-hidden="true" />
             ) : null}
           </button>
         );
@@ -74,11 +74,11 @@ export function WalletLanguageSelect({ id }: WalletLanguageSelectProps) {
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={t('settings.languageLabel')}
-        className="group/language flex min-h-9 cursor-pointer items-center gap-2 rounded-full border border-amber-200/[0.12] bg-[#241b0e] px-2.5 text-xs font-bold text-stone-300 outline-none transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-300/25 hover:bg-[#2c2111] hover:text-amber-100 focus-visible:border-amber-300/40 focus-visible:ring-4 focus-visible:ring-amber-300/10 sm:px-3"
+        className="group/language flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-[#6b9ab4]/25 bg-[#111a24] px-2.5 text-xs font-bold text-[#c5d0d8] outline-none transition-all duration-200 hover:-translate-y-0.5 hover:border-[#46bfd1]/45 hover:bg-[#172532] hover:text-white focus-visible:border-[#f2c95c]/60 focus-visible:ring-4 focus-visible:ring-[#f2c95c]/15 sm:px-3"
         onClick={() => setOpen((current) => !current)}
       >
         <Languages
-          className="size-4 text-amber-300 transition-transform duration-200 group-hover/language:rotate-6"
+          className="size-4 text-[#f2c95c] transition-transform duration-200 group-hover/language:rotate-6"
           aria-hidden="true"
         />
         <span className="sm:hidden" aria-hidden="true">
@@ -88,7 +88,7 @@ export function WalletLanguageSelect({ id }: WalletLanguageSelectProps) {
           {activeLanguage.label}
         </span>
         <ChevronDown
-          className={`size-3 text-stone-500 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          className={`size-3 text-[#718391] transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
           aria-hidden="true"
         />
       </button>

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0
+
+- Patch CVE-2026-126187 by updating React, React DOM and React Server Components to 19.2.9.
+- Introduce the Midnight Circuit visual system with a blue-black canvas, FixedCoin gold actions and dedicated network-status colors.
+- Refine the access workspace, shared controls and wallet dashboard without changing wallet, network, cryptographic or session behavior.
+- Add a compact desktop navigation and a safe-area-aware mobile navigation with larger touch targets and clearer focus states.
+- Improve balance, UTXO, form, loading, error and success presentation across responsive layouts.
+
 ## 1.0.1
 
 - Update the reviewed Vite, Vitest, Cloudflare, Wrangler and formatting toolchain dependencies.

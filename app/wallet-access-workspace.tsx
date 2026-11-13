@@ -68,7 +68,7 @@ const WalletDashboard = lazy(() =>
 const EMAIL_FIELD = 'username';
 const PASSWORD_FIELD = 'password';
 const INPUT_CLASS =
-  'mt-2 min-h-12 w-full rounded-2xl border border-amber-200/[0.12] bg-[#1b160e] px-4 py-3 text-sm text-stone-100 outline-none transition-all duration-200 placeholder:text-stone-600 hover:border-amber-200/20 hover:bg-[#211a10] focus:border-amber-300/55 focus:ring-4 focus:ring-amber-300/10';
+  'mt-2 min-h-12 w-full rounded-xl border border-[#6b9ab4]/25 bg-[#0b1118] px-4 py-3 text-sm text-[#edf2f5] outline-none transition-all duration-200 placeholder:text-[#647684] hover:border-[#46bfd1]/40 hover:bg-[#0e1720] focus:border-[#f2c95c]/70 focus:ring-4 focus:ring-[#f2c95c]/12';
 const SOURCE_ICONS: Record<WalletSourceKind, typeof Fingerprint> = {
   'bip39-hd': Fingerprint,
   'single-private-key': KeyRound,
@@ -114,7 +114,7 @@ function SecretInput({
 }) {
   const { t } = useI18n();
   return (
-    <label className={`text-xs font-semibold text-stone-300 ${className}`}>
+    <label className={`text-xs font-semibold text-[#c5d0d8] ${className}`}>
       {label}
       <span className="relative mt-2 block">
         <input
@@ -128,7 +128,7 @@ function SecretInput({
             label,
           })}
           aria-pressed={revealed}
-          className="absolute inset-y-1 right-1 grid w-10 place-items-center rounded-xl text-stone-500 outline-none transition-all duration-200 hover:bg-white/[0.06] hover:text-amber-200 focus-visible:ring-2 focus-visible:ring-amber-300/30"
+          className="absolute inset-y-1 right-1 grid w-10 place-items-center rounded-lg text-[#718391] outline-none transition-all duration-200 hover:bg-[#46bfd1]/10 hover:text-[#8fe6f2] focus-visible:ring-2 focus-visible:ring-[#f2c95c]/40"
           onClick={onToggle}
         >
           {revealed ? (
@@ -524,7 +524,7 @@ export function WalletAccessWorkspace() {
           fallback={
             <div className="flex min-h-[calc(100dvh-8rem)] items-center justify-center">
               <LoaderCircle
-                className="size-8 animate-spin text-amber-300"
+                className="size-8 animate-spin text-[#f2c95c]"
                 aria-hidden="true"
               />
               <span className="sr-only">{t('scan.title')}</span>
@@ -552,9 +552,9 @@ export function WalletAccessWorkspace() {
     const showingBackup = pendingCreation.stage === 'backup';
     return (
       <section className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6">
-        <Card className="border border-amber-300/20 bg-[#241c10] py-0">
+        <Card className="glass-panel subtle-shine border-[#e0a928]/25 bg-transparent py-0">
           <CardHeader className="px-5 pt-5">
-            <p className="text-xs font-black uppercase tracking-[0.14em] text-amber-300">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-[#f2c95c]">
               {t('backup.required')}
             </p>
             <CardTitle className="mt-2 text-xl text-white">
@@ -573,9 +573,9 @@ export function WalletAccessWorkspace() {
                   {pendingCreation.mnemonic.split(' ').map((word, index) => (
                     <li
                       key={`${index}-${word}`}
-                      className="rounded-lg border border-white/8 bg-stone-950/60 px-3 py-2 font-mono text-sm text-stone-100"
+                      className="rounded-lg border border-[#6b9ab4]/18 bg-[#090f16] px-3 py-2 font-mono text-sm text-[#edf2f5]"
                     >
-                      <span className="mr-2 text-[10px] text-stone-600">
+                      <span className="mr-2 text-[10px] text-[#647684]">
                         {index + 1}
                       </span>
                       {word}
@@ -603,17 +603,17 @@ export function WalletAccessWorkspace() {
                 </Button>
               </>
             ) : (
-              <p className="text-sm leading-6 text-stone-400">
+              <p className="text-sm leading-6 text-[#91a0ac]">
                 {t('backup.verificationIntro')}
               </p>
             )}
             {!showingBackup ? (
               <form className="mt-5" onSubmit={verifyMnemonicBackup}>
-                <div className="grid gap-3 rounded-xl border border-amber-300/20 bg-stone-950/45 p-4 sm:grid-cols-3">
+                <div className="grid gap-3 rounded-xl border border-[#e0a928]/25 bg-[#090f16]/80 p-4 sm:grid-cols-3">
                   {pendingCreation.wordIndexes.map((wordIndex, index) => (
                     <label
                       key={wordIndex}
-                      className="text-xs font-semibold text-amber-50"
+                      className="text-xs font-semibold text-[#f7e6ae]"
                     >
                       {t('backup.verification', {
                         current: index + 1,
@@ -661,26 +661,26 @@ export function WalletAccessWorkspace() {
   return (
     <section className="mx-auto flex w-full max-w-6xl flex-col px-4 py-9 sm:px-6 sm:py-14">
       <div className="mb-7 text-center sm:mb-10">
-        <div className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-amber-300/15 bg-amber-300/[0.055] px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-amber-200/85">
+        <div className="mx-auto mb-4 inline-flex min-h-8 items-center gap-2 rounded-xl border border-[#46bfd1]/20 bg-[#46bfd1]/7 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-[#c8f5fb]">
           <ShieldCheck className="size-3.5" aria-hidden="true" />
           {t('access.badge')}
         </div>
-        <h1 className="text-3xl font-black tracking-[-0.035em] text-white sm:text-4xl">
+        <h1 className="text-3xl font-black tracking-[-0.035em] text-white sm:text-4xl lg:text-[2.75rem]">
           {t('access.title')}
         </h1>
       </div>
 
       {error ? <ErrorNotice message={error} /> : null}
       {notice ? (
-        <div className="flex gap-3 rounded-xl border border-emerald-300/20 bg-emerald-300/[0.045] p-3 text-sm text-emerald-100">
+        <div className="flex gap-3 rounded-xl border border-[#36c98f]/25 bg-[#36c98f]/8 p-3 text-sm text-[#a8f1cf]">
           <ShieldCheck className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
           {notice}
         </div>
       ) : null}
-      <Card className="glass-panel subtle-shine bg-transparent py-0">
-        <div className="grid min-h-[470px] md:grid-cols-[280px_minmax(0,1fr)]">
+      <Card className="glass-panel subtle-shine border-[#6b9ab4]/25 bg-transparent py-0">
+        <div className="grid min-h-[450px] md:grid-cols-[270px_minmax(0,1fr)]">
           <div
-            className="grid grid-cols-3 gap-1.5 border-b border-white/[0.07] bg-stone-950/20 p-2.5 md:grid-cols-1 md:content-start md:border-r md:border-b-0 md:p-4"
+            className="grid grid-cols-3 gap-1.5 border-b border-[#6b9ab4]/16 bg-[#090f16]/55 p-2.5 md:grid-cols-1 md:content-start md:border-r md:border-b-0 md:p-4"
             role="tablist"
             aria-label={t('access.sourceAria')}
           >
@@ -704,10 +704,10 @@ export function WalletAccessWorkspace() {
                     setPrivateKeyVisible(false);
                     setEmailPasswordVisible(false);
                   }}
-                  className={`group/source flex min-h-16 min-w-0 flex-col items-center justify-center gap-1.5 rounded-2xl border px-2 text-center text-[11px] font-bold outline-none transition-all duration-200 sm:text-xs md:min-h-16 md:flex-row md:justify-start md:gap-3 md:px-4 md:text-left ${active ? 'border-amber-300/30 bg-[#a96408] text-white' : 'border-transparent text-stone-500 hover:-translate-y-0.5 hover:border-amber-200/10 hover:bg-white/[0.035] hover:text-stone-200 focus-visible:border-amber-300/30 focus-visible:ring-4 focus-visible:ring-amber-300/10'}`}
+                  className={`group/source flex min-h-16 min-w-0 flex-col items-center justify-center gap-1.5 rounded-xl border px-2 text-center text-[11px] font-bold outline-none transition-all duration-200 sm:text-xs md:min-h-16 md:flex-row md:justify-start md:gap-3 md:px-4 md:text-left ${active ? 'border-[#f2c95c]/60 bg-gradient-to-br from-[#f2c95c] to-[#d99c19] text-[#080b10] shadow-[0_10px_28px_rgba(224,169,40,0.13)]' : 'border-transparent text-[#91a0ac] hover:-translate-y-0.5 hover:border-[#46bfd1]/22 hover:bg-[#46bfd1]/7 hover:text-[#edf2f5] focus-visible:border-[#f2c95c]/50 focus-visible:ring-4 focus-visible:ring-[#f2c95c]/12'}`}
                 >
                   <span
-                    className={`grid size-8 place-items-center rounded-xl transition-all duration-200 ${active ? 'bg-white/12' : 'bg-white/[0.035] group-hover/source:bg-white/[0.07]'}`}
+                    className={`grid size-9 place-items-center rounded-lg transition-all duration-200 ${active ? 'bg-[#080b10]/12' : 'bg-[#46bfd1]/7 group-hover/source:bg-[#46bfd1]/12'}`}
                   >
                     <Icon
                       className="size-4 transition-transform duration-200 group-hover/source:scale-110"
@@ -730,14 +730,14 @@ export function WalletAccessWorkspace() {
 
           <div className="flex flex-col justify-center p-5 sm:p-8 lg:p-11">
             {source === 'bip39-hd' ? (
-              <p className="mb-7 max-w-xl text-sm leading-6 text-stone-400">
+              <p className="mb-7 max-w-xl text-sm leading-6 text-[#91a0ac]">
                 {t('source.bip39Description')}
               </p>
             ) : null}
 
             {source === 'bip39-hd' ? (
               <div>
-                <div className="mb-6 grid grid-cols-2 rounded-2xl border border-white/[0.06] bg-stone-950/55 p-1.5">
+                <div className="mb-6 grid grid-cols-2 rounded-xl border border-[#6b9ab4]/16 bg-[#090f16]/75 p-1.5">
                   {(['import', 'create'] as const).map((mode) => (
                     <button
                       key={mode}
@@ -747,7 +747,7 @@ export function WalletAccessWorkspace() {
                         setBip39Mode(mode);
                         setError(undefined);
                       }}
-                      className={`min-h-10 rounded-xl border px-3 py-2 text-xs font-bold outline-none transition-all duration-200 ${bip39Mode === mode ? 'border-amber-200/15 bg-[#3d2c10] text-white' : 'border-transparent text-stone-500 hover:bg-white/[0.035] hover:text-stone-200 focus-visible:ring-2 focus-visible:ring-amber-300/25'}`}
+                      className={`min-h-11 rounded-lg border px-3 py-2 text-xs font-bold outline-none transition-all duration-200 ${bip39Mode === mode ? 'border-[#e0a928]/35 bg-[#e0a928]/14 text-[#f7e6ae]' : 'border-transparent text-[#91a0ac] hover:bg-[#46bfd1]/8 hover:text-white focus-visible:ring-2 focus-visible:ring-[#f2c95c]/35'}`}
                     >
                       {mode === 'import'
                         ? t('access.import')
@@ -762,7 +762,7 @@ export function WalletAccessWorkspace() {
                       {t('access.newPhrase')}
                     </h2>
                     <form className="space-y-4" onSubmit={createMnemonic}>
-                      <label className="text-xs font-semibold text-stone-300">
+                      <label className="text-xs font-semibold text-[#c5d0d8]">
                         {t('access.length')}
                         <select
                           className={INPUT_CLASS}
@@ -773,7 +773,7 @@ export function WalletAccessWorkspace() {
                           <option value="12">{t('access.words12')}</option>
                         </select>
                       </label>
-                      <label className="flex items-center gap-3 text-sm text-stone-300">
+                      <label className="flex items-center gap-3 text-sm text-[#c5d0d8]">
                         <input
                           type="checkbox"
                           checked={diceEnabled}
@@ -788,14 +788,14 @@ export function WalletAccessWorkspace() {
                         {t('access.dice')}
                       </label>
                       {diceEnabled ? (
-                        <div className="rounded-xl border border-white/8 bg-stone-950/45 p-3">
-                          <div className="flex items-center justify-between text-xs text-stone-400">
+                        <div className="rounded-xl border border-[#6b9ab4]/18 bg-[#090f16]/70 p-3">
+                          <div className="flex items-center justify-between text-xs text-[#91a0ac]">
                             <span>
                               {t('access.rolls', { count: diceCount })}
                             </span>
                             <button
                               type="button"
-                              className="text-amber-300"
+                              className="min-h-11 rounded-lg px-2 text-[#f2c95c] outline-none hover:bg-[#e0a928]/10 focus-visible:ring-2 focus-visible:ring-[#f2c95c]/40"
                               onClick={() => {
                                 diceSession.clear();
                                 setDiceCount(0);
@@ -930,7 +930,7 @@ export function WalletAccessWorkspace() {
                   </h2>
                   <InfoTip label={t('access.emailInfoLabel')}>
                     <span className="block">{t('access.emailIntro')}</span>
-                    <span className="mt-2 block italic text-amber-100/90">
+                    <span className="mt-2 block italic text-[#f7e6ae]">
                       {t('access.emailExactWarning')}
                     </span>
                     <span className="mt-2 block">
@@ -944,7 +944,7 @@ export function WalletAccessWorkspace() {
                   onSubmit={importEmailCredentials}
                   autoComplete={emailCredentialsEnabled ? 'on' : 'off'}
                 >
-                  <label className="text-xs font-semibold text-stone-300">
+                  <label className="text-xs font-semibold text-[#c5d0d8]">
                     {t('access.emailLabel')}
                     <input
                       className={INPUT_CLASS}
@@ -1004,7 +1004,7 @@ export function WalletAccessWorkspace() {
         </div>
       </Card>
 
-      <p className="mt-6 flex items-center justify-center gap-2 text-center text-[11px] font-medium leading-5 text-stone-500">
+      <p className="mt-6 flex items-center justify-center gap-2 text-center text-[11px] font-medium leading-5 text-[#718391]">
         <ShieldCheck className="size-3.5 shrink-0" aria-hidden="true" />
         {t('access.noSecret')}
       </p>

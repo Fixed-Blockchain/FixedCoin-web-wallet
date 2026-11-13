@@ -50,7 +50,7 @@ export function WalletUtxoList({
   );
 
   return (
-    <Card className="glass-panel overflow-visible bg-transparent py-0">
+    <Card className="glass-panel overflow-visible border-cyan-200/[0.10] bg-transparent py-0">
       <CardContent className="p-5 sm:p-6">
         <div className="mb-4 flex flex-wrap items-center gap-2">
           <CardTitle className="text-base text-white">
@@ -64,7 +64,7 @@ export function WalletUtxoList({
         {rows.length === 0 ? (
           <p className="text-sm text-stone-400">{t('utxos.empty')}</p>
         ) : (
-          <ul className="divide-y divide-white/10">
+          <ul className="space-y-3">
             {rows.map((utxo) => {
               const confirmations = utxoConfirmations(utxo, blockHeight);
               const immature =
@@ -76,7 +76,7 @@ export function WalletUtxoList({
               return (
                 <li
                   key={`${utxo.txid}:${utxo.vout}`}
-                  className="space-y-2 py-4 first:pt-0"
+                  className="space-y-3 rounded-2xl border border-cyan-200/[0.08] bg-[#09141e]/75 p-4 transition-colors hover:border-cyan-200/[0.14]"
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="font-mono text-base font-semibold text-stone-100">
@@ -120,7 +120,7 @@ export function WalletUtxoList({
                         : ''}
                     </span>
                   </div>
-                  <div className="space-y-1.5 rounded-xl border border-white/[0.06] px-3 py-2">
+                  <div className="space-y-1.5 rounded-xl border border-cyan-200/[0.08] bg-[#071019]/80 px-3 py-2.5">
                     <div className="flex items-center justify-between gap-2 text-xs text-stone-400">
                       <span>{t('utxos.address')}</span>
                       <span className="rounded-md bg-amber-300/[0.08] px-2 py-0.5 font-semibold text-amber-200">
@@ -136,7 +136,7 @@ export function WalletUtxoList({
                     href={fixedcoinTransactionExplorerUrl(utxo.txid)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-8 max-w-full items-center gap-2 break-all font-mono text-sm text-amber-300 underline-offset-4 hover:underline"
+                    className="inline-flex min-h-11 max-w-full items-center gap-2 break-all rounded-lg font-mono text-sm text-amber-300 underline-offset-4 transition-colors hover:bg-amber-300/[0.06] hover:text-amber-200 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300/70"
                     aria-label={t('utxos.open', {
                       txid: utxo.txid,
                       index: utxo.vout,
@@ -189,7 +189,7 @@ export function WalletUtxoList({
                 max={pageCount}
                 step={1}
                 defaultValue={page}
-                className="min-h-10 w-16 rounded-xl border border-white/15 bg-stone-950 px-2 text-center text-stone-100 focus-visible:outline-2 focus-visible:outline-amber-300"
+                className="min-h-11 w-16 rounded-xl border border-cyan-200/15 bg-[#071019] px-2 text-center text-stone-100 outline-none transition focus-visible:border-amber-300/60 focus-visible:ring-4 focus-visible:ring-amber-300/10"
               />
               <span className="text-stone-400">{`/ ${pageCount}`}</span>
               <Button type="submit" size="sm" variant="outline">
