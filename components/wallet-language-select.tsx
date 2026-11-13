@@ -39,7 +39,7 @@ export function WalletLanguageSelect({ id }: WalletLanguageSelectProps) {
       id={listboxId}
       role="menu"
       aria-label={t('settings.languageLabel')}
-      className="absolute top-full right-0 z-[80] mt-2 max-h-[min(22rem,calc(100vh-6rem))] w-48 overflow-y-auto rounded-xl border border-[#46bfd1]/25 bg-[#111a24] p-1.5 shadow-[0_18px_48px_rgba(0,0,0,0.38)]"
+      className="absolute top-full right-0 z-[80] mt-2 max-h-[min(22rem,calc(100vh-6rem))] w-52 overflow-y-auto rounded-lg border border-[#46bfd1]/28 bg-[#0b141d]/98 p-1.5 shadow-[0_24px_70px_rgba(0,0,0,0.52),inset_0_1px_0_rgba(255,255,255,0.03)] backdrop-blur-xl"
     >
       {WALLET_LANGUAGES.map(({ code, label }) => {
         const selected = code === language;
@@ -49,7 +49,7 @@ export function WalletLanguageSelect({ id }: WalletLanguageSelectProps) {
             type="button"
             role="menuitemradio"
             aria-checked={selected}
-            className={`flex min-h-11 w-full items-center justify-between gap-3 rounded-lg px-3 py-2 text-left text-sm font-semibold outline-none transition-colors duration-150 ${selected ? 'bg-[#e0a928]/18 text-[#f6d77b]' : 'text-[#c5d0d8] hover:bg-[#46bfd1]/10 hover:text-white focus-visible:bg-[#e0a928]/12 focus-visible:text-[#f6d77b]'}`}
+            className={`flex min-h-11 w-full items-center justify-between gap-3 rounded-md border px-3 py-2 text-left text-sm font-semibold outline-none transition-colors duration-150 ${selected ? 'border-[#e0a928]/28 bg-[#e0a928]/14 text-[#f6d77b] shadow-[inset_3px_0_0_#f2c95c]' : 'border-transparent text-[#c5d0d8] hover:border-[#46bfd1]/18 hover:bg-[#46bfd1]/10 hover:text-white focus-visible:bg-[#e0a928]/12 focus-visible:text-[#f6d77b]'}`}
             onClick={() => {
               setLanguage(code);
               setOpen(false);
@@ -74,7 +74,7 @@ export function WalletLanguageSelect({ id }: WalletLanguageSelectProps) {
         aria-expanded={open}
         aria-haspopup="menu"
         aria-label={t('settings.languageLabel')}
-        className="group/language flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-[#6b9ab4]/25 bg-[#111a24] px-2.5 text-xs font-bold text-[#c5d0d8] outline-none transition-all duration-200 hover:-translate-y-0.5 hover:border-[#46bfd1]/45 hover:bg-[#172532] hover:text-white focus-visible:border-[#f2c95c]/60 focus-visible:ring-4 focus-visible:ring-[#f2c95c]/15 sm:px-3"
+        className="group/language flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-[#6b9ab4]/28 bg-[#0b141d] px-2.5 text-[11px] font-extrabold uppercase tracking-[0.06em] text-[#c5d0d8] outline-none transition-all duration-200 hover:-translate-y-0.5 hover:border-[#46bfd1]/52 hover:bg-[#122431] hover:text-white focus-visible:border-[#f2c95c]/60 focus-visible:ring-4 focus-visible:ring-[#f2c95c]/15 sm:px-3.5"
         onClick={() => setOpen((current) => !current)}
       >
         <Languages

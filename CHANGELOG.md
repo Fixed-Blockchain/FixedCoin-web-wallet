@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0
+
+- Rebuild the FixedCoin interface as the Midnight Circuit Command Deck with a visibly distinct technical-premium layout.
+- Introduce an asymmetric access console, a persistent desktop navigation rail and a responsive wallet workspace.
+- Present the balance as the primary instrument alongside real network, block-height, spendable-balance and UTXO telemetry.
+- Refine mobile navigation, translated label handling, focus states, touch targets and reduced-motion behavior without changing wallet logic.
+- Preserve all direct Electrum, session, recovery phrase, transaction and Rust/WASM cryptographic behavior.
+
 ## 1.1.0
 
 - Patch CVE-2026-126187 by updating React, React DOM and React Server Components to 19.2.9.

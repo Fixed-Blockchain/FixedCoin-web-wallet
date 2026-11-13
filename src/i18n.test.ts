@@ -170,8 +170,8 @@ describe('wallet languages', () => {
       readFileSync(resolve(process.cwd(), 'package.json'), 'utf8'),
     );
 
-    expect(packageManifest.version).toBe('1.1.0');
-    expect(`v${packageManifest.version}`).toBe('v1.1.0');
+    expect(packageManifest.version).toBe('1.2.0');
+    expect(`v${packageManifest.version}`).toBe('v1.2.0');
     expect(source).toContain("import packageManifest from '@/package.json';");
     expect(source).toContain('const WALLET_VERSION = packageManifest.version;');
     expect(source).toContain(
@@ -194,7 +194,7 @@ describe('wallet languages', () => {
       'utf8',
     );
 
-    expect(source).toContain('group/source flex min-h-16 min-w-0');
+    expect(source).toContain('group/source relative flex min-h-17 min-w-0');
     expect(source).toContain('<span className="min-w-0 break-words">');
   });
 

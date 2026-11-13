@@ -49,46 +49,53 @@
 
 :root {
   color-scheme: dark;
-  --background: #080b10;
-  --foreground: #edf2f5;
-  --card: #101620;
-  --card-foreground: #edf2f5;
-  --popover: #141d28;
-  --popover-foreground: #edf2f5;
+  --background: #05080c;
+  --foreground: #f2f6f8;
+  --card: #0c141d;
+  --card-foreground: #f2f6f8;
+  --popover: #101a25;
+  --popover-foreground: #f2f6f8;
   --primary: #e0a928;
-  --primary-foreground: #080b10;
-  --secondary: #17202a;
+  --primary-foreground: #090b0d;
+  --secondary: #121e29;
   --secondary-foreground: #d9e2e8;
-  --muted: #18232e;
-  --muted-foreground: #91a0ac;
-  --accent: #1d2b37;
-  --accent-foreground: #edf2f5;
+  --muted: #14212c;
+  --muted-foreground: #9aabb7;
+  --accent: #172936;
+  --accent-foreground: #f2f6f8;
   --destructive: oklch(0.66 0.2 25);
-  --border: rgb(118 155 176 / 18%);
-  --input: rgb(118 155 176 / 24%);
+  --border: rgb(104 171 195 / 20%);
+  --input: rgb(104 171 195 / 28%);
   --ring: #f2c95c;
   --chart-1: #e0a928;
   --chart-2: oklch(0.78 0.15 155);
   --chart-3: #46bfd1;
   --chart-4: oklch(0.7 0.15 300);
   --chart-5: oklch(0.7 0.19 25);
-  --radius: 0.75rem;
-  --sidebar: #0d141c;
+  --radius: 0.625rem;
+  --sidebar: #09111a;
   --sidebar-foreground: #d9e2e8;
   --sidebar-primary: #e0a928;
   --sidebar-primary-foreground: #080b10;
-  --sidebar-accent: #172532;
+  --sidebar-accent: #122532;
   --sidebar-accent-foreground: #edf2f5;
   --sidebar-border: rgb(70 191 209 / 14%);
   --sidebar-ring: #f2c95c;
-  --wallet-canvas: #080b10;
-  --wallet-surface: #101620;
-  --wallet-surface-raised: #17202a;
+  --wallet-canvas: #05080c;
+  --wallet-surface: #0c141d;
+  --wallet-surface-raised: #121e29;
+  --wallet-surface-high: #172733;
   --wallet-gold: #e0a928;
   --wallet-gold-bright: #f2c95c;
   --wallet-network: #46bfd1;
   --wallet-success: #36c98f;
-  --wallet-text-muted: #91a0ac;
+  --wallet-text-muted: #9aabb7;
+  --wallet-line: rgb(70 191 209 / 22%);
+  --wallet-line-strong: rgb(70 191 209 / 42%);
+  --wallet-shadow: 0 30px 90px rgb(0 0 0 / 42%);
+  --wallet-fast: 140ms;
+  --wallet-medium: 240ms;
+  --wallet-ease: cubic-bezier(0.2, 0, 0, 1);
 }
 
 @layer base {
@@ -123,13 +130,17 @@
     touch-action: manipulation;
     background-color: var(--wallet-canvas);
     background-image:
-      radial-gradient(circle at 8% 0%, rgb(70 191 209 / 8%), transparent 28rem),
       radial-gradient(
-        circle at 92% 22%,
-        rgb(224 169 40 / 7%),
-        transparent 24rem
+        circle at 14% -8%,
+        rgb(70 191 209 / 13%),
+        transparent 34rem
       ),
-      linear-gradient(180deg, #0a0f15 0%, #080b10 58%, #070a0e 100%);
+      radial-gradient(
+        circle at 92% 28%,
+        rgb(224 169 40 / 10%),
+        transparent 30rem
+      ),
+      linear-gradient(180deg, #070c12 0%, #05080c 52%, #04070a 100%);
     background-attachment: fixed;
   }
 
@@ -149,6 +160,31 @@
   }
 }
 
+@keyframes fixedcoin-scan {
+  0% {
+    transform: translate3d(0, -100%, 0);
+    opacity: 0;
+  }
+  15%,
+  72% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translate3d(0, 680%, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes fixedcoin-signal {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(54 201 143 / 30%);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgb(54 201 143 / 0%);
+  }
+}
+
 @layer components {
   .wallet-canvas {
     position: relative;
@@ -161,57 +197,61 @@
     overflow-y: visible;
   }
 
-  .wallet-canvas::before,
-  .wallet-canvas::after {
+  .wallet-canvas::before {
     position: fixed;
+    inset: 0;
     z-index: -1;
-    width: min(36rem, 52vw);
-    height: 20rem;
     pointer-events: none;
     content: '';
-    opacity: 0.34;
+    opacity: 0.58;
     background-image:
-      linear-gradient(
-        90deg,
-        transparent 0 8%,
-        rgb(224 169 40 / 24%) 8% 8.25%,
-        transparent 8.25% 100%
-      ),
-      linear-gradient(
-        0deg,
-        transparent 0 28%,
-        rgb(70 191 209 / 18%) 28% 28.3%,
-        transparent 28.3% 100%
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent 0 3.8rem,
-        rgb(70 191 209 / 10%) 3.8rem calc(3.8rem + 1px)
-      );
-    mask-image: linear-gradient(90deg, #000, transparent 88%);
-  }
-
-  .wallet-canvas::before {
-    top: 5rem;
-    left: 0;
+      linear-gradient(rgb(70 191 209 / 7%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(70 191 209 / 7%) 1px, transparent 1px),
+      linear-gradient(rgb(70 191 209 / 3%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(70 191 209 / 3%) 1px, transparent 1px);
+    background-position: center top;
+    background-size:
+      96px 96px,
+      96px 96px,
+      24px 24px,
+      24px 24px;
+    mask-image: linear-gradient(
+      180deg,
+      #000 0%,
+      rgb(0 0 0 / 76%) 58%,
+      transparent 96%
+    );
   }
 
   .wallet-canvas::after {
-    right: 0;
-    bottom: 4rem;
-    transform: rotate(180deg);
+    position: fixed;
+    inset: 5rem 0 auto;
+    z-index: -1;
+    height: 16rem;
+    pointer-events: none;
+    content: '';
+    opacity: 0.74;
+    background:
+      linear-gradient(90deg, transparent, rgb(70 191 209 / 26%), transparent)
+        top / 100% 1px no-repeat,
+      radial-gradient(
+        ellipse at center top,
+        rgb(70 191 209 / 10%),
+        transparent 66%
+      );
   }
 
   .glass-panel {
-    border: 1px solid rgb(95 139 162 / 22%);
+    border: 1px solid rgb(104 171 195 / 25%);
     background: linear-gradient(
-      145deg,
-      rgb(23 32 42 / 97%),
-      rgb(13 20 28 / 98%)
+      152deg,
+      rgb(18 30 41 / 98%),
+      rgb(8 14 21 / 99%)
     );
     box-shadow:
-      0 24px 70px rgb(0 0 0 / 24%),
-      inset 0 1px 0 rgb(255 255 255 / 3%);
+      var(--wallet-shadow),
+      inset 0 1px 0 rgb(255 255 255 / 4%),
+      inset 0 0 48px rgb(70 191 209 / 2%);
   }
 
   .subtle-shine {
@@ -230,6 +270,233 @@
       rgb(242 201 92 / 55%),
       transparent
     );
+  }
+
+  .wallet-command-header {
+    position: relative;
+  }
+
+  .wallet-command-header::after {
+    position: absolute;
+    right: 0;
+    bottom: -1px;
+    left: 0;
+    height: 1px;
+    content: '';
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(70 191 209 / 42%) 28%,
+      rgb(242 201 92 / 32%) 72%,
+      transparent
+    );
+  }
+
+  .wallet-brand-mark {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .wallet-brand-mark::before,
+  .wallet-brand-mark::after {
+    position: absolute;
+    z-index: -1;
+    width: 13px;
+    height: 13px;
+    content: '';
+    border-color: rgb(242 201 92 / 70%);
+  }
+
+  .wallet-brand-mark::before {
+    top: -4px;
+    left: -4px;
+    border-top: 1px solid;
+    border-left: 1px solid;
+  }
+
+  .wallet-brand-mark::after {
+    right: -4px;
+    bottom: -4px;
+    border-right: 1px solid;
+    border-bottom: 1px solid;
+  }
+
+  .wallet-live-dot {
+    animation: fixedcoin-signal 2.2s var(--wallet-ease) infinite;
+  }
+
+  .circuit-panel {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .circuit-panel::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    content: '';
+    background:
+      linear-gradient(90deg, rgb(70 191 209 / 62%), transparent 18%) top left /
+        42% 1px no-repeat,
+      linear-gradient(90deg, transparent 72%, rgb(242 201 92 / 58%)) bottom
+        right / 42% 1px no-repeat,
+      linear-gradient(rgb(70 191 209 / 50%), transparent 24%) top left / 1px 38%
+        no-repeat,
+      linear-gradient(transparent 70%, rgb(242 201 92 / 48%)) bottom right / 1px
+        38% no-repeat;
+  }
+
+  .access-stage {
+    position: relative;
+    border: 1px solid rgb(70 191 209 / 18%);
+    background: rgb(5 9 14 / 72%);
+    box-shadow: 0 42px 120px rgb(0 0 0 / 36%);
+  }
+
+  .access-stage::before {
+    position: absolute;
+    top: -1px;
+    left: 9%;
+    width: 26%;
+    height: 2px;
+    content: '';
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--wallet-network),
+      var(--wallet-gold-bright),
+      transparent
+    );
+    box-shadow: 0 0 22px rgb(70 191 209 / 38%);
+  }
+
+  .access-identity {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(
+        circle at 50% 34%,
+        rgb(224 169 40 / 15%),
+        transparent 23rem
+      ),
+      linear-gradient(155deg, rgb(15 27 37 / 98%), rgb(7 13 20 / 99%));
+  }
+
+  .access-identity::before {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: '';
+    background:
+      linear-gradient(
+        90deg,
+        transparent 49.8%,
+        rgb(70 191 209 / 10%) 50%,
+        transparent 50.2%
+      ),
+      linear-gradient(
+        transparent 49.8%,
+        rgb(70 191 209 / 10%) 50%,
+        transparent 50.2%
+      );
+    background-size: 52px 52px;
+    mask-image: radial-gradient(circle at 50% 38%, #000, transparent 68%);
+  }
+
+  .access-orbit {
+    position: relative;
+    display: grid;
+    width: 11rem;
+    height: 11rem;
+    place-items: center;
+    border: 1px solid rgb(70 191 209 / 24%);
+    border-radius: 999px;
+    background: radial-gradient(
+      circle,
+      rgb(224 169 40 / 14%),
+      rgb(9 16 23 / 92%) 54%,
+      transparent 55%
+    );
+    box-shadow:
+      0 0 0 1.75rem rgb(70 191 209 / 3%),
+      0 0 0 1.8rem rgb(70 191 209 / 10%),
+      0 0 90px rgb(224 169 40 / 12%);
+  }
+
+  .access-orbit::before,
+  .access-orbit::after {
+    position: absolute;
+    content: '';
+    border-radius: inherit;
+  }
+
+  .access-orbit::before {
+    inset: 1.25rem;
+    border: 1px dashed rgb(242 201 92 / 34%);
+  }
+
+  .access-orbit::after {
+    top: -4px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: var(--wallet-network);
+    box-shadow: 0 0 18px rgb(70 191 209 / 82%);
+    transform: translateX(-50%);
+  }
+
+  .access-console {
+    position: relative;
+    background:
+      linear-gradient(180deg, rgb(17 28 39 / 98%), rgb(8 14 21 / 99%)),
+      var(--wallet-surface);
+  }
+
+  .access-console::after {
+    position: absolute;
+    top: 0;
+    right: 2.5rem;
+    width: 7rem;
+    height: 1px;
+    content: '';
+    background: var(--wallet-gold-bright);
+    box-shadow: 0 0 18px rgb(242 201 92 / 44%);
+  }
+
+  .access-scanline {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 2;
+    height: 1px;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(70 191 209 / 28%),
+      transparent
+    );
+    animation: fixedcoin-scan 9s linear infinite;
+  }
+
+  .technical-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #b8edf4;
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    line-height: 1rem;
+    text-transform: uppercase;
+  }
+
+  .technical-kicker::before {
+    width: 1.5rem;
+    height: 1px;
+    content: '';
+    background: var(--wallet-network);
+    box-shadow: 0 0 10px rgb(70 191 209 / 52%);
   }
 }
 
@@ -255,10 +522,22 @@
     background-attachment: scroll;
   }
 
-  .wallet-canvas::before,
+  .wallet-canvas::before {
+    opacity: 0.34;
+    background-size:
+      72px 72px,
+      72px 72px,
+      18px 18px,
+      18px 18px;
+  }
+
   .wallet-canvas::after {
-    width: 80vw;
-    opacity: 0.18;
+    opacity: 0.52;
+  }
+
+  .access-orbit {
+    width: 7rem;
+    height: 7rem;
   }
 }
 

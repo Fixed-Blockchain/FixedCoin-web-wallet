@@ -68,7 +68,7 @@ const WalletDashboard = lazy(() =>
 const EMAIL_FIELD = 'username';
 const PASSWORD_FIELD = 'password';
 const INPUT_CLASS =
-  'mt-2 min-h-12 w-full rounded-xl border border-[#6b9ab4]/25 bg-[#0b1118] px-4 py-3 text-sm text-[#edf2f5] outline-none transition-all duration-200 placeholder:text-[#647684] hover:border-[#46bfd1]/40 hover:bg-[#0e1720] focus:border-[#f2c95c]/70 focus:ring-4 focus:ring-[#f2c95c]/12';
+  'mt-2 min-h-13 w-full rounded-lg border border-[#6b9ab4]/28 bg-[#070d13] px-4 py-3 text-sm text-[#f2f6f8] shadow-[inset_3px_0_0_rgba(70,191,209,0.08)] outline-none transition-all duration-200 placeholder:text-[#6f818e] hover:border-[#46bfd1]/48 hover:bg-[#0a131b] focus:border-[#f2c95c]/75 focus:shadow-[inset_3px_0_0_rgba(242,201,92,0.75),0_0_0_4px_rgba(242,201,92,0.10)]';
 const SOURCE_ICONS: Record<WalletSourceKind, typeof Fingerprint> = {
   'bip39-hd': Fingerprint,
   'single-private-key': KeyRound,
@@ -519,7 +519,7 @@ export function WalletAccessWorkspace() {
 
   if (activeWallet && sessionActive) {
     return (
-      <section className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6 sm:py-8">
+      <section className="mx-auto w-full max-w-[1440px] px-3 py-4 sm:px-6 sm:py-7">
         <Suspense
           fallback={
             <div className="flex min-h-[calc(100dvh-8rem)] items-center justify-center">
@@ -551,8 +551,8 @@ export function WalletAccessWorkspace() {
   if (pendingCreation) {
     const showingBackup = pendingCreation.stage === 'backup';
     return (
-      <section className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6">
-        <Card className="glass-panel subtle-shine border-[#e0a928]/25 bg-transparent py-0">
+      <section className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
+        <Card className="glass-panel circuit-panel subtle-shine rounded-xl border-[#e0a928]/28 bg-transparent py-0">
           <CardHeader className="px-5 pt-5">
             <p className="text-xs font-black uppercase tracking-[0.14em] text-[#f2c95c]">
               {t('backup.required')}
@@ -573,7 +573,7 @@ export function WalletAccessWorkspace() {
                   {pendingCreation.mnemonic.split(' ').map((word, index) => (
                     <li
                       key={`${index}-${word}`}
-                      className="rounded-lg border border-[#6b9ab4]/18 bg-[#090f16] px-3 py-2 font-mono text-sm text-[#edf2f5]"
+                      className="rounded-md border border-[#6b9ab4]/22 bg-[#060c12] px-3 py-2.5 font-mono text-sm text-[#edf2f5] shadow-[inset_2px_0_0_rgba(70,191,209,0.12)]"
                     >
                       <span className="mr-2 text-[10px] text-[#647684]">
                         {index + 1}
@@ -609,7 +609,7 @@ export function WalletAccessWorkspace() {
             )}
             {!showingBackup ? (
               <form className="mt-5" onSubmit={verifyMnemonicBackup}>
-                <div className="grid gap-3 rounded-xl border border-[#e0a928]/25 bg-[#090f16]/80 p-4 sm:grid-cols-3">
+                <div className="grid gap-3 rounded-lg border border-[#e0a928]/25 bg-[#060c12]/88 p-4 sm:grid-cols-3">
                   {pendingCreation.wordIndexes.map((wordIndex, index) => (
                     <label
                       key={wordIndex}
@@ -659,355 +659,393 @@ export function WalletAccessWorkspace() {
   }
 
   return (
-    <section className="mx-auto flex w-full max-w-6xl flex-col px-4 py-9 sm:px-6 sm:py-14">
-      <div className="mb-7 text-center sm:mb-10">
-        <div className="mx-auto mb-4 inline-flex min-h-8 items-center gap-2 rounded-xl border border-[#46bfd1]/20 bg-[#46bfd1]/7 px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.14em] text-[#c8f5fb]">
-          <ShieldCheck className="size-3.5" aria-hidden="true" />
-          {t('access.badge')}
-        </div>
-        <h1 className="text-3xl font-black tracking-[-0.035em] text-white sm:text-4xl lg:text-[2.75rem]">
-          {t('access.title')}
-        </h1>
-      </div>
+    <section className="mx-auto flex w-full max-w-[1380px] grow flex-col px-3 py-5 sm:px-6 sm:py-9 lg:py-12">
+      <div className="access-stage circuit-panel overflow-hidden rounded-xl">
+        <div className="grid min-h-[640px] xl:grid-cols-[minmax(320px,0.74fr)_minmax(0,1.26fr)]">
+          <aside className="access-identity flex min-h-[310px] flex-col justify-between border-b border-[#46bfd1]/18 p-7 sm:p-10 xl:min-h-0 xl:border-r xl:border-b-0 xl:p-12">
+            <div className="relative z-10">
+              <div className="technical-kicker">
+                <ShieldCheck className="size-3.5" aria-hidden="true" />
+                {t('access.badge')}
+              </div>
+              <h1 className="mt-5 max-w-xl text-3xl font-black leading-[1.06] tracking-[-0.04em] text-white sm:text-4xl xl:text-[3.3rem]">
+                {t('access.title')}
+              </h1>
+            </div>
 
-      {error ? <ErrorNotice message={error} /> : null}
-      {notice ? (
-        <div className="flex gap-3 rounded-xl border border-[#36c98f]/25 bg-[#36c98f]/8 p-3 text-sm text-[#a8f1cf]">
-          <ShieldCheck className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
-          {notice}
-        </div>
-      ) : null}
-      <Card className="glass-panel subtle-shine border-[#6b9ab4]/25 bg-transparent py-0">
-        <div className="grid min-h-[450px] md:grid-cols-[270px_minmax(0,1fr)]">
-          <div
-            className="grid grid-cols-3 gap-1.5 border-b border-[#6b9ab4]/16 bg-[#090f16]/55 p-2.5 md:grid-cols-1 md:content-start md:border-r md:border-b-0 md:p-4"
-            role="tablist"
-            aria-label={t('access.sourceAria')}
-          >
-            {ACCESS_SOURCE_ORDER.map((kind) => {
-              const policy = WALLET_SOURCE_POLICIES.find(
-                (entry) => entry.kind === kind,
-              )!;
-              const Icon = SOURCE_ICONS[policy.kind];
-              const active = source === policy.kind;
-              return (
-                <button
-                  key={policy.kind}
-                  type="button"
-                  role="tab"
-                  aria-selected={active}
-                  onClick={() => {
-                    clearEmailCredentialFields();
-                    setSource(policy.kind);
-                    setError(undefined);
-                    setMnemonicVisible(false);
-                    setPrivateKeyVisible(false);
-                    setEmailPasswordVisible(false);
-                  }}
-                  className={`group/source flex min-h-16 min-w-0 flex-col items-center justify-center gap-1.5 rounded-xl border px-2 text-center text-[11px] font-bold outline-none transition-all duration-200 sm:text-xs md:min-h-16 md:flex-row md:justify-start md:gap-3 md:px-4 md:text-left ${active ? 'border-[#f2c95c]/60 bg-gradient-to-br from-[#f2c95c] to-[#d99c19] text-[#080b10] shadow-[0_10px_28px_rgba(224,169,40,0.13)]' : 'border-transparent text-[#91a0ac] hover:-translate-y-0.5 hover:border-[#46bfd1]/22 hover:bg-[#46bfd1]/7 hover:text-[#edf2f5] focus-visible:border-[#f2c95c]/50 focus-visible:ring-4 focus-visible:ring-[#f2c95c]/12'}`}
-                >
-                  <span
-                    className={`grid size-9 place-items-center rounded-lg transition-all duration-200 ${active ? 'bg-[#080b10]/12' : 'bg-[#46bfd1]/7 group-hover/source:bg-[#46bfd1]/12'}`}
-                  >
-                    <Icon
-                      className="size-4 transition-transform duration-200 group-hover/source:scale-110"
+            <div
+              aria-hidden="true"
+              className="relative z-10 my-10 hidden place-items-center sm:grid xl:my-14"
+            >
+              <div className="access-orbit">
+                <div className="grid size-16 place-items-center rounded-full border border-[#f2c95c]/30 bg-[#e0a928]/10 shadow-[0_0_36px_rgba(224,169,40,0.14)]">
+                  <ShieldCheck className="size-7 text-[#f2c95c]" />
+                </div>
+              </div>
+            </div>
+
+            <p className="relative z-10 flex max-w-md items-start gap-3 border-l border-[#36c98f]/40 bg-[#36c98f]/[0.055] px-4 py-3 text-xs font-semibold leading-5 text-[#a8d8c4]">
+              <ShieldCheck
+                className="mt-0.5 size-4 shrink-0 text-[#42d39b]"
+                aria-hidden="true"
+              />
+              {t('access.noSecret')}
+            </p>
+          </aside>
+
+          <div className="access-console relative flex min-w-0 flex-col">
+            <span className="access-scanline" aria-hidden="true" />
+            {error || notice ? (
+              <div className="relative z-10 px-5 pt-5 sm:px-8 sm:pt-8">
+                {error ? <ErrorNotice message={error} /> : null}
+                {notice ? (
+                  <div className="flex gap-3 rounded-lg border border-[#36c98f]/25 bg-[#36c98f]/8 p-3 text-sm text-[#a8f1cf]">
+                    <ShieldCheck
+                      className="mt-0.5 size-4 shrink-0"
                       aria-hidden="true"
                     />
-                  </span>
-                  <span className="min-w-0 break-words">
-                    {t(
-                      policy.kind === 'email-credentials'
-                        ? 'source.email'
-                        : policy.kind === 'bip39-hd'
-                          ? 'source.bip39'
-                          : 'source.privateKey',
-                    )}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="flex flex-col justify-center p-5 sm:p-8 lg:p-11">
-            {source === 'bip39-hd' ? (
-              <p className="mb-7 max-w-xl text-sm leading-6 text-[#91a0ac]">
-                {t('source.bip39Description')}
-              </p>
+                    {notice}
+                  </div>
+                ) : null}
+              </div>
             ) : null}
-
-            {source === 'bip39-hd' ? (
-              <div>
-                <div className="mb-6 grid grid-cols-2 rounded-xl border border-[#6b9ab4]/16 bg-[#090f16]/75 p-1.5">
-                  {(['import', 'create'] as const).map((mode) => (
-                    <button
-                      key={mode}
-                      type="button"
-                      aria-pressed={bip39Mode === mode}
-                      onClick={() => {
-                        setBip39Mode(mode);
-                        setError(undefined);
-                      }}
-                      className={`min-h-11 rounded-lg border px-3 py-2 text-xs font-bold outline-none transition-all duration-200 ${bip39Mode === mode ? 'border-[#e0a928]/35 bg-[#e0a928]/14 text-[#f7e6ae]' : 'border-transparent text-[#91a0ac] hover:bg-[#46bfd1]/8 hover:text-white focus-visible:ring-2 focus-visible:ring-[#f2c95c]/35'}`}
-                    >
-                      {mode === 'import'
-                        ? t('access.import')
-                        : t('access.create')}
-                    </button>
-                  ))}
-                </div>
-
-                {bip39Mode === 'create' ? (
-                  <div>
-                    <h2 className="mb-5 text-lg font-black tracking-tight text-white">
-                      {t('access.newPhrase')}
-                    </h2>
-                    <form className="space-y-4" onSubmit={createMnemonic}>
-                      <label className="text-xs font-semibold text-[#c5d0d8]">
-                        {t('access.length')}
-                        <select
-                          className={INPUT_CLASS}
-                          name="wordCount"
-                          defaultValue="24"
+            <Card className="min-h-0 flex-1 rounded-none border-0 bg-transparent py-0 shadow-none">
+              <div className="grid min-h-full md:grid-cols-[230px_minmax(0,1fr)]">
+                <div
+                  className="grid grid-cols-3 gap-1 border-b border-[#6b9ab4]/18 bg-[#060c12]/78 p-2 md:grid-cols-1 md:content-start md:gap-2 md:border-r md:border-b-0 md:px-4 md:py-8"
+                  role="tablist"
+                  aria-label={t('access.sourceAria')}
+                >
+                  {ACCESS_SOURCE_ORDER.map((kind) => {
+                    const policy = WALLET_SOURCE_POLICIES.find(
+                      (entry) => entry.kind === kind,
+                    )!;
+                    const Icon = SOURCE_ICONS[policy.kind];
+                    const active = source === policy.kind;
+                    return (
+                      <button
+                        key={policy.kind}
+                        type="button"
+                        role="tab"
+                        aria-selected={active}
+                        onClick={() => {
+                          clearEmailCredentialFields();
+                          setSource(policy.kind);
+                          setError(undefined);
+                          setMnemonicVisible(false);
+                          setPrivateKeyVisible(false);
+                          setEmailPasswordVisible(false);
+                        }}
+                        className={`group/source relative flex min-h-17 min-w-0 flex-col items-center justify-center gap-1.5 rounded-md border px-2 text-center text-[10px] font-extrabold uppercase tracking-[0.05em] outline-none transition-all duration-200 sm:text-[11px] md:min-h-18 md:flex-row md:justify-start md:gap-3 md:px-4 md:text-left ${active ? 'border-[#f2c95c]/38 bg-[#e0a928]/12 text-[#f8d875] shadow-[inset_3px_0_0_#f2c95c,0_12px_28px_rgba(0,0,0,0.18)]' : 'border-transparent text-[#91a0ac] hover:border-[#46bfd1]/28 hover:bg-[#46bfd1]/8 hover:text-[#edf2f5] focus-visible:border-[#f2c95c]/50 focus-visible:ring-4 focus-visible:ring-[#f2c95c]/12'}`}
+                      >
+                        <span
+                          className={`grid size-9 place-items-center rounded-md border transition-all duration-200 ${active ? 'border-[#f2c95c]/28 bg-[#e0a928]/12 text-[#f2c95c]' : 'border-[#46bfd1]/10 bg-[#46bfd1]/6 text-[#7f9daa] group-hover/source:border-[#46bfd1]/24 group-hover/source:bg-[#46bfd1]/12 group-hover/source:text-[#8fe6f2]'}`}
                         >
-                          <option value="24">{t('access.words24')}</option>
-                          <option value="12">{t('access.words12')}</option>
-                        </select>
-                      </label>
-                      <label className="flex items-center gap-3 text-sm text-[#c5d0d8]">
-                        <input
-                          type="checkbox"
-                          checked={diceEnabled}
-                          onChange={(event) => {
-                            setDiceEnabled(event.target.checked);
-                            if (!event.target.checked) {
-                              diceSession.clear();
-                              setDiceCount(0);
-                            }
-                          }}
-                        />
-                        {t('access.dice')}
-                      </label>
-                      {diceEnabled ? (
-                        <div className="rounded-xl border border-[#6b9ab4]/18 bg-[#090f16]/70 p-3">
-                          <div className="flex items-center justify-between text-xs text-[#91a0ac]">
-                            <span>
-                              {t('access.rolls', { count: diceCount })}
-                            </span>
-                            <button
-                              type="button"
-                              className="min-h-11 rounded-lg px-2 text-[#f2c95c] outline-none hover:bg-[#e0a928]/10 focus-visible:ring-2 focus-visible:ring-[#f2c95c]/40"
-                              onClick={() => {
-                                diceSession.clear();
-                                setDiceCount(0);
-                              }}
-                            >
-                              {t('access.clear')}
-                            </button>
-                          </div>
-                          <div className="mt-3 grid grid-cols-6 gap-2">
-                            {[1, 2, 3, 4, 5, 6].map((value) => (
-                              <Button
-                                key={value}
-                                type="button"
-                                variant="outline"
-                                size="sm"
-                                disabled={diceSession.complete}
-                                onClick={() => addDieResult(value)}
-                              >
-                                {value}
-                              </Button>
-                            ))}
-                          </div>
-                        </div>
-                      ) : null}
-                      <Button
-                        disabled={busy}
-                        size="lg"
-                        type="submit"
-                        className="w-full"
-                      >
-                        {busy ? (
-                          <LoaderCircle
-                            className="animate-spin"
-                            data-icon="inline-start"
+                          <Icon
+                            className="size-4 transition-transform duration-200 group-hover/source:scale-110"
+                            aria-hidden="true"
                           />
-                        ) : (
-                          <Dice5 data-icon="inline-start" />
-                        )}{' '}
-                        {t('access.generate')}
-                      </Button>
-                    </form>
-                  </div>
-                ) : (
-                  <div>
-                    <h2 className="mb-5 text-lg font-black tracking-tight text-white">
-                      {t('access.restore')}
-                    </h2>
-                    <form
-                      className="space-y-4"
-                      onSubmit={importMnemonic}
-                      autoComplete="off"
-                    >
-                      <SecretInput
-                        autoCapitalize="none"
-                        autoComplete="off"
-                        autoCorrect="off"
-                        label={t('access.phrase')}
-                        name="mnemonic"
-                        onToggle={() =>
-                          setMnemonicVisible((visible) => !visible)
-                        }
-                        placeholder={t('access.phrasePlaceholder')}
-                        required
-                        revealed={mnemonicVisible}
-                        spellCheck={false}
-                      />
-                      <Button
-                        disabled={busy}
-                        size="lg"
-                        type="submit"
-                        className="w-full"
-                      >
-                        {busy ? (
-                          <LoaderCircle
-                            className="animate-spin"
-                            data-icon="inline-start"
-                          />
-                        ) : null}
-                        {t('access.openSync')}
-                      </Button>
-                    </form>
-                  </div>
-                )}
-              </div>
-            ) : null}
-
-            {source === 'single-private-key' ? (
-              <div>
-                <h2 className="mb-5 text-lg font-black tracking-tight text-white">
-                  {t('access.privateTitle')}
-                </h2>
-                <form
-                  className="space-y-4"
-                  onSubmit={importPrivateKey}
-                  autoComplete="off"
-                >
-                  <SecretInput
-                    autoCapitalize="none"
-                    autoComplete="off"
-                    autoCorrect="off"
-                    label={t('access.privateLabel')}
-                    name="privateKey"
-                    onToggle={() => setPrivateKeyVisible((visible) => !visible)}
-                    placeholder={t('access.privatePlaceholder')}
-                    required
-                    revealed={privateKeyVisible}
-                    spellCheck={false}
-                  />
-                  <Button
-                    disabled={busy}
-                    size="lg"
-                    type="submit"
-                    className="w-full"
-                  >
-                    {busy ? (
-                      <LoaderCircle
-                        className="animate-spin"
-                        data-icon="inline-start"
-                      />
-                    ) : null}
-                    {t('access.openSync')}
-                  </Button>
-                </form>
-              </div>
-            ) : null}
-
-            {source === 'email-credentials' ? (
-              <div>
-                <div className="mb-5 flex items-center gap-2">
-                  <h2 className="text-lg font-black tracking-tight text-white">
-                    {t('access.emailTitle')}
-                  </h2>
-                  <InfoTip label={t('access.emailInfoLabel')}>
-                    <span className="block">{t('access.emailIntro')}</span>
-                    <span className="mt-2 block italic text-[#f7e6ae]">
-                      {t('access.emailExactWarning')}
-                    </span>
-                    <span className="mt-2 block">
-                      {t('access.emailSeedAvailable')}
-                    </span>
-                  </InfoTip>
+                        </span>
+                        <span className="min-w-0 break-words">
+                          {t(
+                            policy.kind === 'email-credentials'
+                              ? 'source.email'
+                              : policy.kind === 'bip39-hd'
+                                ? 'source.bip39'
+                                : 'source.privateKey',
+                          )}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
-                <form
-                  ref={emailCredentialFormRef}
-                  className="grid gap-4 sm:grid-cols-2"
-                  onSubmit={importEmailCredentials}
-                  autoComplete={emailCredentialsEnabled ? 'on' : 'off'}
-                >
-                  <label className="text-xs font-semibold text-[#c5d0d8]">
-                    {t('access.emailLabel')}
-                    <input
-                      className={INPUT_CLASS}
-                      name={EMAIL_FIELD}
-                      type="email"
-                      required
-                      autoCapitalize="none"
-                      autoComplete={
-                        emailCredentialsEnabled ? 'username' : 'off'
-                      }
-                      autoCorrect="off"
-                      onFocus={enableEmailCredentialFields}
-                      onPointerDown={enableEmailCredentialFields}
-                      placeholder={t('access.emailPlaceholder')}
-                      readOnly={!emailCredentialsEnabled}
-                      spellCheck={false}
-                    />
-                  </label>
-                  <SecretInput
-                    autoComplete={
-                      emailCredentialsEnabled ? 'current-password' : 'off'
-                    }
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                    label={t('access.passwordLabel')}
-                    minLength={8}
-                    name={PASSWORD_FIELD}
-                    onFocus={enableEmailCredentialFields}
-                    onPointerDown={enableEmailCredentialFields}
-                    onToggle={() =>
-                      setEmailPasswordVisible((visible) => !visible)
-                    }
-                    placeholder={t('access.passwordPlaceholder')}
-                    required
-                    readOnly={!emailCredentialsEnabled}
-                    revealed={emailPasswordVisible}
-                    spellCheck={false}
-                  />
-                  <Button
-                    disabled={busy}
-                    size="lg"
-                    type="submit"
-                    className="w-full sm:col-span-2"
-                  >
-                    {busy ? (
-                      <LoaderCircle
-                        className="animate-spin"
-                        data-icon="inline-start"
-                      />
-                    ) : null}
-                    {t('access.openSync')}
-                  </Button>
-                </form>
+
+                <div className="flex min-w-0 flex-col justify-center p-6 sm:p-9 lg:p-12">
+                  {source === 'bip39-hd' ? (
+                    <p className="mb-7 max-w-xl text-sm leading-6 text-[#91a0ac]">
+                      {t('source.bip39Description')}
+                    </p>
+                  ) : null}
+
+                  {source === 'bip39-hd' ? (
+                    <div>
+                      <div className="mb-7 grid grid-cols-2 rounded-lg border border-[#6b9ab4]/20 bg-[#060c12]/82 p-1.5">
+                        {(['import', 'create'] as const).map((mode) => (
+                          <button
+                            key={mode}
+                            type="button"
+                            aria-pressed={bip39Mode === mode}
+                            onClick={() => {
+                              setBip39Mode(mode);
+                              setError(undefined);
+                            }}
+                            className={`min-h-11 rounded-md border px-3 py-2 text-[11px] font-extrabold uppercase tracking-[0.08em] outline-none transition-all duration-200 ${bip39Mode === mode ? 'border-[#e0a928]/38 bg-[#e0a928]/14 text-[#f7d777] shadow-[inset_0_-2px_0_rgba(242,201,92,0.5)]' : 'border-transparent text-[#91a0ac] hover:bg-[#46bfd1]/8 hover:text-white focus-visible:ring-2 focus-visible:ring-[#f2c95c]/35'}`}
+                          >
+                            {mode === 'import'
+                              ? t('access.import')
+                              : t('access.create')}
+                          </button>
+                        ))}
+                      </div>
+
+                      {bip39Mode === 'create' ? (
+                        <div>
+                          <h2 className="mb-6 text-xl font-black tracking-[-0.02em] text-white sm:text-2xl">
+                            {t('access.newPhrase')}
+                          </h2>
+                          <form className="space-y-4" onSubmit={createMnemonic}>
+                            <label className="text-xs font-semibold text-[#c5d0d8]">
+                              {t('access.length')}
+                              <select
+                                className={INPUT_CLASS}
+                                name="wordCount"
+                                defaultValue="24"
+                              >
+                                <option value="24">
+                                  {t('access.words24')}
+                                </option>
+                                <option value="12">
+                                  {t('access.words12')}
+                                </option>
+                              </select>
+                            </label>
+                            <label className="flex items-center gap-3 text-sm text-[#c5d0d8]">
+                              <input
+                                type="checkbox"
+                                checked={diceEnabled}
+                                onChange={(event) => {
+                                  setDiceEnabled(event.target.checked);
+                                  if (!event.target.checked) {
+                                    diceSession.clear();
+                                    setDiceCount(0);
+                                  }
+                                }}
+                              />
+                              {t('access.dice')}
+                            </label>
+                            {diceEnabled ? (
+                              <div className="rounded-lg border border-[#6b9ab4]/20 bg-[#060c12]/78 p-3">
+                                <div className="flex items-center justify-between text-xs text-[#91a0ac]">
+                                  <span>
+                                    {t('access.rolls', { count: diceCount })}
+                                  </span>
+                                  <button
+                                    type="button"
+                                    className="min-h-11 rounded-lg px-2 text-[#f2c95c] outline-none hover:bg-[#e0a928]/10 focus-visible:ring-2 focus-visible:ring-[#f2c95c]/40"
+                                    onClick={() => {
+                                      diceSession.clear();
+                                      setDiceCount(0);
+                                    }}
+                                  >
+                                    {t('access.clear')}
+                                  </button>
+                                </div>
+                                <div className="mt-3 grid grid-cols-6 gap-2">
+                                  {[1, 2, 3, 4, 5, 6].map((value) => (
+                                    <Button
+                                      key={value}
+                                      type="button"
+                                      variant="outline"
+                                      size="sm"
+                                      disabled={diceSession.complete}
+                                      onClick={() => addDieResult(value)}
+                                    >
+                                      {value}
+                                    </Button>
+                                  ))}
+                                </div>
+                              </div>
+                            ) : null}
+                            <Button
+                              disabled={busy}
+                              size="lg"
+                              type="submit"
+                              className="w-full"
+                            >
+                              {busy ? (
+                                <LoaderCircle
+                                  className="animate-spin"
+                                  data-icon="inline-start"
+                                />
+                              ) : (
+                                <Dice5 data-icon="inline-start" />
+                              )}{' '}
+                              {t('access.generate')}
+                            </Button>
+                          </form>
+                        </div>
+                      ) : (
+                        <div>
+                          <h2 className="mb-6 text-xl font-black tracking-[-0.02em] text-white sm:text-2xl">
+                            {t('access.restore')}
+                          </h2>
+                          <form
+                            className="space-y-4"
+                            onSubmit={importMnemonic}
+                            autoComplete="off"
+                          >
+                            <SecretInput
+                              autoCapitalize="none"
+                              autoComplete="off"
+                              autoCorrect="off"
+                              label={t('access.phrase')}
+                              name="mnemonic"
+                              onToggle={() =>
+                                setMnemonicVisible((visible) => !visible)
+                              }
+                              placeholder={t('access.phrasePlaceholder')}
+                              required
+                              revealed={mnemonicVisible}
+                              spellCheck={false}
+                            />
+                            <Button
+                              disabled={busy}
+                              size="lg"
+                              type="submit"
+                              className="w-full"
+                            >
+                              {busy ? (
+                                <LoaderCircle
+                                  className="animate-spin"
+                                  data-icon="inline-start"
+                                />
+                              ) : null}
+                              {t('access.openSync')}
+                            </Button>
+                          </form>
+                        </div>
+                      )}
+                    </div>
+                  ) : null}
+
+                  {source === 'single-private-key' ? (
+                    <div>
+                      <h2 className="mb-6 text-xl font-black tracking-[-0.02em] text-white sm:text-2xl">
+                        {t('access.privateTitle')}
+                      </h2>
+                      <form
+                        className="space-y-4"
+                        onSubmit={importPrivateKey}
+                        autoComplete="off"
+                      >
+                        <SecretInput
+                          autoCapitalize="none"
+                          autoComplete="off"
+                          autoCorrect="off"
+                          label={t('access.privateLabel')}
+                          name="privateKey"
+                          onToggle={() =>
+                            setPrivateKeyVisible((visible) => !visible)
+                          }
+                          placeholder={t('access.privatePlaceholder')}
+                          required
+                          revealed={privateKeyVisible}
+                          spellCheck={false}
+                        />
+                        <Button
+                          disabled={busy}
+                          size="lg"
+                          type="submit"
+                          className="w-full"
+                        >
+                          {busy ? (
+                            <LoaderCircle
+                              className="animate-spin"
+                              data-icon="inline-start"
+                            />
+                          ) : null}
+                          {t('access.openSync')}
+                        </Button>
+                      </form>
+                    </div>
+                  ) : null}
+
+                  {source === 'email-credentials' ? (
+                    <div>
+                      <div className="mb-5 flex items-center gap-2">
+                        <h2 className="text-xl font-black tracking-[-0.02em] text-white sm:text-2xl">
+                          {t('access.emailTitle')}
+                        </h2>
+                        <InfoTip label={t('access.emailInfoLabel')}>
+                          <span className="block">
+                            {t('access.emailIntro')}
+                          </span>
+                          <span className="mt-2 block italic text-[#f7e6ae]">
+                            {t('access.emailExactWarning')}
+                          </span>
+                          <span className="mt-2 block">
+                            {t('access.emailSeedAvailable')}
+                          </span>
+                        </InfoTip>
+                      </div>
+                      <form
+                        ref={emailCredentialFormRef}
+                        className="grid gap-4 sm:grid-cols-2"
+                        onSubmit={importEmailCredentials}
+                        autoComplete={emailCredentialsEnabled ? 'on' : 'off'}
+                      >
+                        <label className="text-xs font-semibold text-[#c5d0d8]">
+                          {t('access.emailLabel')}
+                          <input
+                            className={INPUT_CLASS}
+                            name={EMAIL_FIELD}
+                            type="email"
+                            required
+                            autoCapitalize="none"
+                            autoComplete={
+                              emailCredentialsEnabled ? 'username' : 'off'
+                            }
+                            autoCorrect="off"
+                            onFocus={enableEmailCredentialFields}
+                            onPointerDown={enableEmailCredentialFields}
+                            placeholder={t('access.emailPlaceholder')}
+                            readOnly={!emailCredentialsEnabled}
+                            spellCheck={false}
+                          />
+                        </label>
+                        <SecretInput
+                          autoComplete={
+                            emailCredentialsEnabled ? 'current-password' : 'off'
+                          }
+                          autoCapitalize="none"
+                          autoCorrect="off"
+                          label={t('access.passwordLabel')}
+                          minLength={8}
+                          name={PASSWORD_FIELD}
+                          onFocus={enableEmailCredentialFields}
+                          onPointerDown={enableEmailCredentialFields}
+                          onToggle={() =>
+                            setEmailPasswordVisible((visible) => !visible)
+                          }
+                          placeholder={t('access.passwordPlaceholder')}
+                          required
+                          readOnly={!emailCredentialsEnabled}
+                          revealed={emailPasswordVisible}
+                          spellCheck={false}
+                        />
+                        <Button
+                          disabled={busy}
+                          size="lg"
+                          type="submit"
+                          className="w-full sm:col-span-2"
+                        >
+                          {busy ? (
+                            <LoaderCircle
+                              className="animate-spin"
+                              data-icon="inline-start"
+                            />
+                          ) : null}
+                          {t('access.openSync')}
+                        </Button>
+                      </form>
+                    </div>
+                  ) : null}
+                </div>
               </div>
-            ) : null}
+            </Card>
           </div>
         </div>
-      </Card>
-
-      <p className="mt-6 flex items-center justify-center gap-2 text-center text-[11px] font-medium leading-5 text-[#718391]">
-        <ShieldCheck className="size-3.5 shrink-0" aria-hidden="true" />
-        {t('access.noSecret')}
-      </p>
+      </div>
     </section>
   );
 }
@@ -1016,7 +1054,7 @@ function ErrorNotice({ message }: { message: string }) {
   return (
     <div
       role="alert"
-      className="mb-4 flex gap-3 rounded-xl border border-red-300/25 bg-red-300/[0.06] p-3 text-sm text-red-100"
+      className="mb-4 flex gap-3 rounded-lg border border-red-300/25 bg-red-300/[0.06] p-3 text-sm text-red-100 shadow-[inset_3px_0_0_rgba(252,165,165,0.55)]"
     >
       <CircleAlert className="mt-0.5 size-4 shrink-0" aria-hidden="true" />
       {message}

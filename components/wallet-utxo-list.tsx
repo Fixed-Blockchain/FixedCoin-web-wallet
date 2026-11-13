@@ -50,21 +50,23 @@ export function WalletUtxoList({
   );
 
   return (
-    <Card className="glass-panel overflow-visible border-cyan-200/[0.10] bg-transparent py-0">
-      <CardContent className="p-5 sm:p-6">
-        <div className="mb-4 flex flex-wrap items-center gap-2">
-          <CardTitle className="text-base text-white">
+    <Card className="glass-panel subtle-shine overflow-visible border-cyan-200/[0.12] bg-transparent py-0 shadow-[0_28px_80px_rgba(0,0,0,0.24)]">
+      <CardContent className="p-5 sm:p-7">
+        <div className="mb-6 flex flex-wrap items-end gap-3 border-b border-cyan-200/[0.09] pb-5">
+          <CardTitle className="text-xl font-black tracking-[-0.025em] text-white">
             {t('utxos.title')}
           </CardTitle>
           <InfoTip label={t('utxos.about')}>{t('utxos.help')}</InfoTip>
-          <span className="ml-auto text-sm tabular-nums text-stone-400">
+          <span className="ml-auto rounded-full border border-amber-300/20 bg-amber-300/[0.07] px-3 py-1 font-mono text-sm font-black tabular-nums text-amber-100">
             {utxos.length}
           </span>
         </div>
         {rows.length === 0 ? (
-          <p className="text-sm text-stone-400">{t('utxos.empty')}</p>
+          <p className="rounded-2xl border border-dashed border-cyan-200/[0.14] bg-[#071019]/45 px-5 py-12 text-center text-sm text-stone-400">
+            {t('utxos.empty')}
+          </p>
         ) : (
-          <ul className="space-y-3">
+          <ul className="grid gap-3 xl:grid-cols-2">
             {rows.map((utxo) => {
               const confirmations = utxoConfirmations(utxo, blockHeight);
               const immature =
@@ -76,14 +78,18 @@ export function WalletUtxoList({
               return (
                 <li
                   key={`${utxo.txid}:${utxo.vout}`}
-                  className="space-y-3 rounded-2xl border border-cyan-200/[0.08] bg-[#09141e]/75 p-4 transition-colors hover:border-cyan-200/[0.14]"
+                  className="group/utxo relative min-w-0 space-y-4 overflow-hidden rounded-2xl border border-cyan-200/[0.09] bg-[#09141e]/85 p-4 shadow-[0_18px_45px_rgba(0,0,0,0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-200/[0.18] hover:bg-[#0c1924] sm:p-5"
                 >
+                  <div
+                    aria-hidden="true"
+                    className={`absolute inset-y-5 left-0 w-px ${confirmations === 0 || immature ? 'bg-amber-300/70' : 'bg-emerald-300/60'}`}
+                  />
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="font-mono text-base font-semibold text-stone-100">
+                    <span className="font-mono text-lg font-black tracking-tight text-white">
                       {formatFixedCoinAmount(utxo.valueSats)} FIX
                     </span>
                     <span
-                      className={`text-sm ${confirmations === 0 || immature ? 'text-amber-200' : 'text-emerald-200'}`}
+                      className={`rounded-full border px-2.5 py-1 text-xs font-bold ${confirmations === 0 || immature ? 'border-amber-300/20 bg-amber-300/[0.07] text-amber-200' : 'border-emerald-300/20 bg-emerald-300/[0.06] text-emerald-200'}`}
                     >
                       {t(
                         confirmations === 0
@@ -94,7 +100,7 @@ export function WalletUtxoList({
                       )}
                     </span>
                   </div>
-                  <div className="flex flex-wrap justify-between gap-x-4 gap-y-2 text-sm text-stone-400">
+                  <div className="flex flex-wrap justify-between gap-x-4 gap-y-2 text-xs leading-5 text-stone-400">
                     <span>
                       {timestamp ? (
                         <>
@@ -120,7 +126,7 @@ export function WalletUtxoList({
                         : ''}
                     </span>
                   </div>
-                  <div className="space-y-1.5 rounded-xl border border-cyan-200/[0.08] bg-[#071019]/80 px-3 py-2.5">
+                  <div className="space-y-2 rounded-xl border border-cyan-200/[0.08] bg-[#061019]/85 px-3.5 py-3">
                     <div className="flex items-center justify-between gap-2 text-xs text-stone-400">
                       <span>{t('utxos.address')}</span>
                       <span className="rounded-md bg-amber-300/[0.08] px-2 py-0.5 font-semibold text-amber-200">
