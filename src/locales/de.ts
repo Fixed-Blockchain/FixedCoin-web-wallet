@@ -146,6 +146,8 @@ export const de = {
   "settings.toPlaceholder": "Endindex, z. B. 39",
   "settings.inspectSession": "Für diese Sitzung prüfen",
   "home.totalBalance": "Gesamtsaldo",
+  "home.balanceBreakdown": "Saldoaufteilung",
+  "home.nextMaturity": "Nächste Reife: {count} Blöcke",
   "home.spendable": "{amount} FIX verfügbar",
   "home.pending": "{amount} FIX ausstehend",
   "home.immature": "{amount} FIX Mining-Ertrag in Reifung",

@@ -146,6 +146,8 @@ export const pt = {
   "settings.toPlaceholder": "Índice final, ex. 39",
   "settings.inspectSession": "Analisar para esta sessão",
   "home.totalBalance": "Saldo total",
+  "home.balanceBreakdown": "Distribuição do saldo",
+  "home.nextMaturity": "Próxima maturidade: {count} blocos",
   "home.spendable": "{amount} FIX disponíveis",
   "home.pending": "{amount} FIX pendentes",
   "home.immature": "{amount} FIX de mineração em maturação",

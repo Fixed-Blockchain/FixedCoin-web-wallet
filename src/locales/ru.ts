@@ -146,6 +146,8 @@ export const ru = {
   "settings.toPlaceholder": "Конечный индекс, напр. 39",
   "settings.inspectSession": "Проверить для этой сессии",
   "home.totalBalance": "Общий баланс",
+  "home.balanceBreakdown": "Структура баланса",
+  "home.nextMaturity": "До ближайшего созревания: {count} блоков",
   "home.spendable": "Доступно {amount} FIX",
   "home.pending": "{amount} FIX ожидают подтверждения",
   "home.immature": "{amount} FIX награды майнинга созревают",

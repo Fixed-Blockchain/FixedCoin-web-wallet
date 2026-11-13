@@ -146,6 +146,8 @@ export const es = {
   "settings.toPlaceholder": "Índice final, p. ej. 39",
   "settings.inspectSession": "Inspeccionar para esta sesión",
   "home.totalBalance": "Saldo total",
+  "home.balanceBreakdown": "Desglose del saldo",
+  "home.nextMaturity": "Próxima madurez: {count} bloques",
   "home.spendable": "{amount} FIX disponibles",
   "home.pending": "{amount} FIX pendientes",
   "home.immature": "{amount} FIX de minería en maduración",

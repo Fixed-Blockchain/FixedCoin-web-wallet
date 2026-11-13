@@ -146,6 +146,8 @@ export const tr = {
   "settings.toPlaceholder": "Bitiş indeksi, ör. 39",
   "settings.inspectSession": "Bu oturum için tara",
   "home.totalBalance": "Toplam bakiye",
+  "home.balanceBreakdown": "Bakiye dağılımı",
+  "home.nextMaturity": "Sonraki olgunlaşma: {count} blok",
   "home.spendable": "{amount} FIX harcanabilir",
   "home.pending": "{amount} FIX bekliyor",
   "home.immature": "{amount} FIX madencilik ödülü olgunlaşıyor",

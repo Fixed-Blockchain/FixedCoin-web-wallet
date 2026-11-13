@@ -1,5 +1,5 @@
 {
   "schemaVersion": 1,
   "target": "wasm32-unknown-unknown/release/fixedcoin_wallet_crypto_web.wasm",
-  "sha256": "0f268083a0729cbff447f0aa7557c49591dced1540e22094aabb68e337475a47"
+  "sha256": "79a0be3f25ffff62658978f658a16aa1754b63df3d4dd0191dc0d53540864f04"
 }

@@ -146,6 +146,8 @@ export const ja = {
   "settings.toPlaceholder": "終了インデックス（例: 39）",
   "settings.inspectSession": "このセッションで確認",
   "home.totalBalance": "合計残高",
+  "home.balanceBreakdown": "残高の内訳",
+  "home.nextMaturity": "次の成熟まで：{count}ブロック",
   "home.spendable": "{amount} FIX 使用可能",
   "home.pending": "{amount} FIX 保留中",
   "home.immature": "{amount} FIX マイニング報酬が成熟中",

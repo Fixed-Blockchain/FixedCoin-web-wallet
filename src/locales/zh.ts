@@ -146,6 +146,8 @@ export const zh = {
   "settings.toPlaceholder": "结束索引，例如 39",
   "settings.inspectSession": "为当前会话检查",
   "home.totalBalance": "总余额",
+  "home.balanceBreakdown": "余额明细",
+  "home.nextMaturity": "距下一笔成熟还有 {count} 个区块",
   "home.spendable": "可用 {amount} FIX",
   "home.pending": "{amount} FIX 待确认",
   "home.immature": "{amount} FIX 挖矿奖励正在成熟",

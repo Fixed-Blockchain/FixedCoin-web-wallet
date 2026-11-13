@@ -144,6 +144,8 @@ export const en = {
   "settings.toPlaceholder": "End index, e.g. 39",
   "settings.inspectSession": "Inspect for this session",
   "home.totalBalance": "Total balance",
+  "home.balanceBreakdown": "Balance breakdown",
+  "home.nextMaturity": "Next maturity: {count} blocks",
   "home.spendable": "{amount} FIX spendable",
   "home.pending": "{amount} FIX pending",
   "home.immature": "{amount} FIX mining reward maturing",

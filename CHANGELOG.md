@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.2
+
+- Replace the standalone spendable-balance card with a translated balance breakdown for spendable, pending and immature mining funds.
+- Show the number of blocks until the next immature coinbase reward reaches maturity when applicable.
+- Preserve all wallet synchronization, spending, Electrum and Rust/WASM cryptographic behavior.
+
 ## 1.2.1
 
 - Remove the redundant UTXO metric from the home dashboard while preserving the dedicated UTXO workspace and navigation.

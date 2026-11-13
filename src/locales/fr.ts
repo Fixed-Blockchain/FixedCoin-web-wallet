@@ -146,6 +146,8 @@ export const fr = {
   "settings.toPlaceholder": "Index de fin, ex. 39",
   "settings.inspectSession": "Inspecter pour cette session",
   "home.totalBalance": "Solde total",
+  "home.balanceBreakdown": "Répartition du solde",
+  "home.nextMaturity": "Prochaine maturité : {count} blocs",
   "home.spendable": "{amount} FIX dépensable",
   "home.pending": "{amount} FIX en attente",
   "home.immature": "{amount} FIX de minage en maturation",
