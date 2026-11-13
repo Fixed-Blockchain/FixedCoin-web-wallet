@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+
+- Remove the redundant UTXO metric from the home dashboard while preserving the dedicated UTXO workspace and navigation.
+- Replace the oversized wallet-access identity panel with a compact security header and a denser responsive access console.
+- Preserve all direct Electrum, session, recovery phrase, transaction and Rust/WASM cryptographic behavior.
+
 ## 1.2.0
 
 - Rebuild the FixedCoin interface as the Midnight Circuit Command Deck with a visibly distinct technical-premium layout.

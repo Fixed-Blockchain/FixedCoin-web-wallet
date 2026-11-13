@@ -1972,8 +1972,8 @@ export function WalletDashboard({
               </CardContent>
             </Card>
 
-            <div className="grid gap-4 sm:grid-cols-3 xl:col-span-4 xl:grid-cols-1">
-              <div className="relative overflow-hidden rounded-2xl border border-cyan-200/[0.12] bg-[#09141e]/90 p-5 shadow-[0_20px_55px_rgba(0,0,0,0.18)]">
+            <div className="grid gap-4 sm:grid-cols-2 xl:col-span-4 xl:grid-cols-1 xl:grid-rows-2">
+              <div className="relative h-full min-h-36 overflow-hidden rounded-2xl border border-cyan-200/[0.12] bg-[#09141e]/90 p-5 shadow-[0_20px_55px_rgba(0,0,0,0.18)]">
                 <div
                   aria-hidden="true"
                   className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/50 to-transparent"
@@ -1997,24 +1997,7 @@ export function WalletDashboard({
                 ) : null}
               </div>
 
-              <button
-                type="button"
-                className="group/metric relative min-h-32 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0d1822]/90 p-5 text-left outline-none transition-all duration-200 hover:-translate-y-0.5 hover:border-amber-300/25 hover:bg-[#111e29] focus-visible:ring-4 focus-visible:ring-amber-300/15"
-                onClick={() => setActiveView('utxos')}
-              >
-                <Database
-                  className="absolute top-5 right-5 size-5 text-amber-300/70 transition-transform group-hover/metric:scale-110"
-                  aria-hidden="true"
-                />
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#91a0ac]">
-                  {t('nav.utxos')}
-                </p>
-                <p className="mt-4 font-mono text-3xl font-black tabular-nums text-white">
-                  {snapshot.utxos.length}
-                </p>
-              </button>
-
-              <div className="relative min-h-32 overflow-hidden rounded-2xl border border-amber-300/[0.14] bg-amber-300/[0.035] p-5">
+              <div className="relative h-full min-h-36 overflow-hidden rounded-2xl border border-amber-300/[0.14] bg-amber-300/[0.035] p-5">
                 <div
                   aria-hidden="true"
                   className="absolute right-0 bottom-0 h-20 w-20 rounded-tl-full bg-amber-300/[0.035]"

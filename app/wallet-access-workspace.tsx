@@ -659,39 +659,30 @@ export function WalletAccessWorkspace() {
   }
 
   return (
-    <section className="mx-auto flex w-full max-w-[1380px] grow flex-col px-3 py-5 sm:px-6 sm:py-9 lg:py-12">
+    <section className="mx-auto flex w-full max-w-[1120px] grow flex-col px-3 py-5 sm:px-6 sm:py-8 lg:py-10">
       <div className="access-stage circuit-panel overflow-hidden rounded-xl">
-        <div className="grid min-h-[640px] xl:grid-cols-[minmax(320px,0.74fr)_minmax(0,1.26fr)]">
-          <aside className="access-identity flex min-h-[310px] flex-col justify-between border-b border-[#46bfd1]/18 p-7 sm:p-10 xl:min-h-0 xl:border-r xl:border-b-0 xl:p-12">
-            <div className="relative z-10">
-              <div className="technical-kicker">
-                <ShieldCheck className="size-3.5" aria-hidden="true" />
-                {t('access.badge')}
-              </div>
-              <h1 className="mt-5 max-w-xl text-3xl font-black leading-[1.06] tracking-[-0.04em] text-white sm:text-4xl xl:text-[3.3rem]">
-                {t('access.title')}
-              </h1>
-            </div>
-
-            <div
-              aria-hidden="true"
-              className="relative z-10 my-10 hidden place-items-center sm:grid xl:my-14"
-            >
-              <div className="access-orbit">
-                <div className="grid size-16 place-items-center rounded-full border border-[#f2c95c]/30 bg-[#e0a928]/10 shadow-[0_0_36px_rgba(224,169,40,0.14)]">
-                  <ShieldCheck className="size-7 text-[#f2c95c]" />
+        <div className="flex min-h-0 flex-col">
+          <header className="access-intro relative z-10 grid gap-4 border-b border-[#46bfd1]/18 px-5 py-5 sm:flex sm:items-center sm:justify-between sm:gap-8 sm:px-8 sm:py-6">
+            <div className="relative z-10 min-w-0">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                <div className="technical-kicker">
+                  <ShieldCheck className="size-3.5" aria-hidden="true" />
+                  {t('access.badge')}
                 </div>
+                <h1 className="text-2xl font-black leading-tight tracking-[-0.035em] text-white sm:text-3xl">
+                  {t('access.title')}
+                </h1>
               </div>
             </div>
 
-            <p className="relative z-10 flex max-w-md items-start gap-3 border-l border-[#36c98f]/40 bg-[#36c98f]/[0.055] px-4 py-3 text-xs font-semibold leading-5 text-[#a8d8c4]">
+            <p className="relative z-10 flex max-w-sm items-start gap-3 border-l border-[#36c98f]/40 bg-[#36c98f]/[0.055] px-4 py-3 text-xs font-semibold leading-5 text-[#a8d8c4] sm:shrink-0">
               <ShieldCheck
                 className="mt-0.5 size-4 shrink-0 text-[#42d39b]"
                 aria-hidden="true"
               />
               {t('access.noSecret')}
             </p>
-          </aside>
+          </header>
 
           <div className="access-console relative flex min-w-0 flex-col">
             <span className="access-scanline" aria-hidden="true" />
@@ -710,9 +701,9 @@ export function WalletAccessWorkspace() {
               </div>
             ) : null}
             <Card className="min-h-0 flex-1 rounded-none border-0 bg-transparent py-0 shadow-none">
-              <div className="grid min-h-full md:grid-cols-[230px_minmax(0,1fr)]">
+              <div className="grid min-h-[430px] md:grid-cols-[210px_minmax(0,1fr)]">
                 <div
-                  className="grid grid-cols-3 gap-1 border-b border-[#6b9ab4]/18 bg-[#060c12]/78 p-2 md:grid-cols-1 md:content-start md:gap-2 md:border-r md:border-b-0 md:px-4 md:py-8"
+                  className="grid grid-cols-3 gap-1 border-b border-[#6b9ab4]/18 bg-[#060c12]/78 p-2 md:grid-cols-1 md:content-start md:gap-2 md:border-r md:border-b-0 md:px-4 md:py-6"
                   role="tablist"
                   aria-label={t('access.sourceAria')}
                 >
@@ -760,7 +751,7 @@ export function WalletAccessWorkspace() {
                   })}
                 </div>
 
-                <div className="flex min-w-0 flex-col justify-center p-6 sm:p-9 lg:p-12">
+                <div className="flex min-w-0 flex-col justify-center p-5 sm:p-7 lg:p-9">
                   {source === 'bip39-hd' ? (
                     <p className="mb-7 max-w-xl text-sm leading-6 text-[#91a0ac]">
                       {t('source.bip39Description')}
