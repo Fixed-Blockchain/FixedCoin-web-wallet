@@ -606,6 +606,9 @@ export function WalletDashboard({
     );
   }
 
+  const showBalanceBreakdown =
+    snapshot.unconfirmedSats > 0 || (snapshot.immatureCoinbaseSats ?? 0) > 0;
+
   async function copyReceiveAddress() {
     if (!receiveAddress) return;
     try {
@@ -1877,7 +1880,9 @@ export function WalletDashboard({
 
         {activeView === 'home' ? (
           <div className="grid gap-5 xl:grid-cols-12">
-            <Card className="glass-panel subtle-shine relative overflow-hidden border-amber-300/25 bg-transparent py-0 shadow-[0_32px_100px_rgba(0,0,0,0.32)] xl:col-span-8">
+            <Card
+              className={`glass-panel subtle-shine relative overflow-hidden border-amber-300/25 bg-transparent py-0 shadow-[0_32px_100px_rgba(0,0,0,0.32)] ${showBalanceBreakdown ? 'xl:col-span-8' : 'xl:col-span-12'}`}
+            >
               <CardContent className="relative flex min-h-[24rem] flex-col justify-between overflow-hidden p-6 sm:min-h-[27rem] sm:p-9 lg:p-10">
                 <div
                   aria-hidden="true"
@@ -1947,61 +1952,65 @@ export function WalletDashboard({
               </CardContent>
             </Card>
 
-            <div className="relative min-h-36 overflow-hidden rounded-2xl border border-amber-300/[0.14] bg-amber-300/[0.035] p-5 xl:col-span-4">
-              <div
-                aria-hidden="true"
-                className="absolute right-0 bottom-0 h-20 w-20 rounded-tl-full bg-amber-300/[0.035]"
-              />
-              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-amber-200/60">
-                {t('home.balanceBreakdown')}
-              </p>
-              <dl className="relative mt-3 divide-y divide-white/[0.06]">
-                <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-3 py-2 first:pt-0">
-                  <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
-                    <span
-                      aria-hidden="true"
-                      className="size-1.5 shrink-0 rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.55)]"
-                    />
-                    {t('utxos.spendable')}
-                  </dt>
-                  <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-emerald-100">
-                    {formatFixedCoinAmount(snapshot.spendableSats)} FIX
-                  </dd>
-                </div>
-                <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-3 py-2">
-                  <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
-                    <span
-                      aria-hidden="true"
-                      className="size-1.5 shrink-0 rounded-full bg-amber-300 shadow-[0_0_10px_rgba(252,211,77,0.45)]"
-                    />
-                    {t('utxos.pending')}
-                  </dt>
-                  <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-amber-100">
-                    {formatFixedCoinAmount(snapshot.unconfirmedSats)} FIX
-                  </dd>
-                </div>
-                <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-x-3 gap-y-1 py-2 last:pb-0">
-                  <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
-                    <span
-                      aria-hidden="true"
-                      className="size-1.5 shrink-0 rounded-full bg-orange-300 shadow-[0_0_10px_rgba(253,186,116,0.45)]"
-                    />
-                    {t('utxos.immature')}
-                  </dt>
-                  <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-orange-100">
-                    {formatFixedCoinAmount(snapshot.immatureCoinbaseSats ?? 0)}{' '}
-                    FIX
-                  </dd>
-                  {(snapshot.immatureCoinbaseBlocksRemaining ?? 0) > 0 ? (
-                    <dd className="col-span-2 pl-3.5 text-[10px] font-semibold text-orange-200/65">
-                      {t('home.nextMaturity', {
-                        count: snapshot.immatureCoinbaseBlocksRemaining ?? 0,
-                      })}
+            {showBalanceBreakdown ? (
+              <div className="relative min-h-36 overflow-hidden rounded-2xl border border-amber-300/[0.14] bg-amber-300/[0.035] p-5 xl:col-span-4">
+                <div
+                  aria-hidden="true"
+                  className="absolute right-0 bottom-0 h-20 w-20 rounded-tl-full bg-amber-300/[0.035]"
+                />
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-amber-200/60">
+                  {t('home.balanceBreakdown')}
+                </p>
+                <dl className="relative mt-3 divide-y divide-white/[0.06]">
+                  <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-3 py-2 first:pt-0">
+                    <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
+                      <span
+                        aria-hidden="true"
+                        className="size-1.5 shrink-0 rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.55)]"
+                      />
+                      {t('utxos.spendable')}
+                    </dt>
+                    <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-emerald-100">
+                      {formatFixedCoinAmount(snapshot.spendableSats)} FIX
                     </dd>
-                  ) : null}
-                </div>
-              </dl>
-            </div>
+                  </div>
+                  <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-3 py-2">
+                    <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
+                      <span
+                        aria-hidden="true"
+                        className="size-1.5 shrink-0 rounded-full bg-amber-300 shadow-[0_0_10px_rgba(252,211,77,0.45)]"
+                      />
+                      {t('utxos.pending')}
+                    </dt>
+                    <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-amber-100">
+                      {formatFixedCoinAmount(snapshot.unconfirmedSats)} FIX
+                    </dd>
+                  </div>
+                  <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-x-3 gap-y-1 py-2 last:pb-0">
+                    <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
+                      <span
+                        aria-hidden="true"
+                        className="size-1.5 shrink-0 rounded-full bg-orange-300 shadow-[0_0_10px_rgba(253,186,116,0.45)]"
+                      />
+                      {t('utxos.immature')}
+                    </dt>
+                    <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-orange-100">
+                      {formatFixedCoinAmount(
+                        snapshot.immatureCoinbaseSats ?? 0,
+                      )}{' '}
+                      FIX
+                    </dd>
+                    {(snapshot.immatureCoinbaseBlocksRemaining ?? 0) > 0 ? (
+                      <dd className="col-span-2 pl-3.5 text-[10px] font-semibold text-orange-200/65">
+                        {t('home.nextMaturity', {
+                          count: snapshot.immatureCoinbaseBlocksRemaining ?? 0,
+                        })}
+                      </dd>
+                    ) : null}
+                  </div>
+                </dl>
+              </div>
+            ) : null}
 
             {spendableUtxoCount >= 21 ? (
               <Card className="glass-panel overflow-visible border-violet-300/15 bg-transparent py-0 xl:col-span-12">

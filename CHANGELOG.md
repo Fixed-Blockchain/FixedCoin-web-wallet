@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.4
+
+- Show the balance breakdown only while funds are pending or mining rewards are immature.
+- Expand the primary balance card across the dashboard when every fund is spendable.
+- Preserve all wallet synchronization, spending, Electrum, session and Rust/WASM cryptographic behavior.
+
 ## 1.2.3
 
 - Consolidate the wallet network state and current block height into the session card.
