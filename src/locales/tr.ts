@@ -23,7 +23,6 @@ export const tr = {
   "utxos.go": "Git",
   "utxos.next": "Sonraki sayfa",
   "app.ready": "Hazır",
-  "app.connectionEstablished": "Bağlantı kuruldu",
   "footer.officialRepository": "Projenin resmî deposu",
   "core.ready": "WASM + Worker hazır",
   "core.unavailable": "Motor kullanılamıyor",

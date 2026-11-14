@@ -23,7 +23,6 @@ export const zh = {
   "utxos.go": "前往",
   "utxos.next": "下一页",
   "app.ready": "已就绪",
-  "app.connectionEstablished": "已连接",
   "footer.officialRepository": "项目官方代码仓库",
   "core.ready": "WASM + Worker 已就绪",
   "core.unavailable": "引擎不可用",

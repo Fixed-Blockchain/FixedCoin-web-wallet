@@ -201,19 +201,6 @@ const defaultFamilyFor = (summary: WalletSessionSummary): HdAccountKey => {
   );
 };
 
-const networkTone = (state?: WalletNetworkState) => {
-  if (
-    state?.record?.status === 'fresh' &&
-    (state.status === 'ready' || state.status === 'scanning')
-  ) {
-    return 'bg-emerald-300 text-stone-950';
-  }
-  if (state?.status === 'stale' || state?.status === 'error') {
-    return 'border-amber-300/30 bg-amber-300/10 text-amber-100';
-  }
-  return 'border-cyan-300/25 bg-cyan-300/[0.08] text-cyan-100';
-};
-
 const networkSignalTone = (state?: WalletNetworkState) => {
   if (
     state?.record?.status === 'fresh' &&
@@ -1442,6 +1429,26 @@ export function WalletDashboard({
     setBackupError(undefined);
   }
 
+  const renderNetworkSummary = () => (
+    <div className="mt-1.5 flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1 text-[11px] font-semibold text-cyan-100/65">
+      <span
+        aria-hidden="true"
+        className={`size-1.5 shrink-0 rounded-full ${networkSignalTone(network)}`}
+      />
+      <span>{networkLabel(network, t)}</span>
+      {network?.blockHeight ? (
+        <>
+          <span aria-hidden="true" className="text-cyan-100/25">
+            {'·'}
+          </span>
+          <span className="font-mono tabular-nums text-[#91a0ac]">
+            {t('utxos.blockDate')} {network.blockHeight}
+          </span>
+        </>
+      ) : null}
+    </div>
+  );
+
   const renderNavigation = (mobile: boolean) => (
     <nav
       aria-label={t('nav.aria')}
@@ -1537,17 +1544,9 @@ export function WalletDashboard({
               <p className="text-sm font-black leading-tight tracking-tight text-white">
                 {t(sourceLabelKey(summary))}
               </p>
-              <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-100/50">
-                {t('app.connectionEstablished')}
-              </p>
+              {renderNetworkSummary()}
             </div>
           </div>
-          <Badge
-            variant="outline"
-            className={`mt-4 inline-flex max-w-full ${networkTone(network)}`}
-          >
-            <span className="truncate">{networkLabel(network, t)}</span>
-          </Badge>
         </div>
 
         <div className="my-4 h-px bg-gradient-to-r from-transparent via-cyan-200/[0.14] to-transparent" />
@@ -1583,18 +1582,10 @@ export function WalletDashboard({
               <p className="text-sm font-black tracking-tight text-white">
                 {t(sourceLabelKey(summary))}
               </p>
-              <p className="mt-0.5 text-[11px] text-cyan-100/55">
-                {t('app.connectionEstablished')}
-              </p>
+              {renderNetworkSummary()}
             </div>
           </div>
-          <div className="flex min-w-0 items-center justify-between gap-1.5 sm:justify-end">
-            <Badge
-              variant="outline"
-              className={`inline-flex min-w-0 max-w-full ${networkTone(network)}`}
-            >
-              <span className="truncate">{networkLabel(network, t)}</span>
-            </Badge>
+          <div className="flex min-w-0 items-center justify-end gap-1.5">
             <Button
               aria-label={t('wallet.refresh')}
               variant="ghost"
@@ -1610,7 +1601,7 @@ export function WalletDashboard({
           </div>
         </div>
 
-        <div className="hidden items-end justify-between gap-4 border-b border-cyan-200/[0.10] pb-4 lg:flex">
+        <div className="hidden border-b border-cyan-200/[0.10] pb-4 lg:block">
           <div>
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-100/45">
               {t(sourceLabelKey(summary))}
@@ -1619,12 +1610,6 @@ export function WalletDashboard({
               {activeNavigation.label}
             </h2>
           </div>
-          <Badge
-            variant="outline"
-            className={`inline-flex max-w-full ${networkTone(network)}`}
-          >
-            <span className="truncate">{networkLabel(network, t)}</span>
-          </Badge>
         </div>
 
         {localError || network?.errorCode ? (
@@ -1907,19 +1892,9 @@ export function WalletDashboard({
                   className="pointer-events-none absolute right-12 bottom-10 h-24 w-40 opacity-35 [background-image:linear-gradient(rgba(119,223,235,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(119,223,235,0.12)_1px,transparent_1px)] [background-size:16px_16px]"
                 />
                 <div className="relative">
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-100/55">
-                      {t('home.totalBalance')}
-                    </p>
-                    <Badge
-                      variant="outline"
-                      className={`inline-flex max-w-full ${networkTone(network)}`}
-                    >
-                      <span className="truncate">
-                        {networkLabel(network, t)}
-                      </span>
-                    </Badge>
-                  </div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-cyan-100/55">
+                    {t('home.totalBalance')}
+                  </p>
                   <WalletBalance satoshis={snapshot.balanceSats} />
                   {snapshot.spendableSats !== snapshot.balanceSats ? (
                     <p className="mt-4 text-xs font-semibold text-stone-400">
@@ -1972,88 +1947,60 @@ export function WalletDashboard({
               </CardContent>
             </Card>
 
-            <div className="grid gap-4 sm:grid-cols-2 xl:col-span-4 xl:grid-cols-1 xl:grid-rows-2">
-              <div className="relative h-full min-h-36 overflow-hidden rounded-2xl border border-cyan-200/[0.12] bg-[#09141e]/90 p-5 shadow-[0_20px_55px_rgba(0,0,0,0.18)]">
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-200/50 to-transparent"
-                />
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-cyan-100/45">
-                  {t('app.connectionEstablished')}
-                </p>
-                <p className="mt-3 text-lg font-black tracking-tight text-white">
-                  {networkLabel(network, t)}
-                </p>
-                <div className="mt-4 flex items-center gap-2 text-xs text-emerald-200/80">
-                  <span
-                    className={`size-2 rounded-full ${networkSignalTone(network)}`}
-                  />
-                  {t(sourceLabelKey(summary))}
+            <div className="relative min-h-36 overflow-hidden rounded-2xl border border-amber-300/[0.14] bg-amber-300/[0.035] p-5 xl:col-span-4">
+              <div
+                aria-hidden="true"
+                className="absolute right-0 bottom-0 h-20 w-20 rounded-tl-full bg-amber-300/[0.035]"
+              />
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-amber-200/60">
+                {t('home.balanceBreakdown')}
+              </p>
+              <dl className="relative mt-3 divide-y divide-white/[0.06]">
+                <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-3 py-2 first:pt-0">
+                  <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
+                    <span
+                      aria-hidden="true"
+                      className="size-1.5 shrink-0 rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.55)]"
+                    />
+                    {t('utxos.spendable')}
+                  </dt>
+                  <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-emerald-100">
+                    {formatFixedCoinAmount(snapshot.spendableSats)} FIX
+                  </dd>
                 </div>
-                {network?.blockHeight ? (
-                  <p className="mt-3 font-mono text-[11px] tabular-nums text-[#91a0ac]">
-                    {t('utxos.blockDate')} {network.blockHeight}
-                  </p>
-                ) : null}
-              </div>
-
-              <div className="relative h-full min-h-36 overflow-hidden rounded-2xl border border-amber-300/[0.14] bg-amber-300/[0.035] p-5">
-                <div
-                  aria-hidden="true"
-                  className="absolute right-0 bottom-0 h-20 w-20 rounded-tl-full bg-amber-300/[0.035]"
-                />
-                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-amber-200/60">
-                  {t('home.balanceBreakdown')}
-                </p>
-                <dl className="relative mt-3 divide-y divide-white/[0.06]">
-                  <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-3 py-2 first:pt-0">
-                    <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
-                      <span
-                        aria-hidden="true"
-                        className="size-1.5 shrink-0 rounded-full bg-emerald-300 shadow-[0_0_10px_rgba(110,231,183,0.55)]"
-                      />
-                      {t('utxos.spendable')}
-                    </dt>
-                    <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-emerald-100">
-                      {formatFixedCoinAmount(snapshot.spendableSats)} FIX
+                <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-3 py-2">
+                  <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
+                    <span
+                      aria-hidden="true"
+                      className="size-1.5 shrink-0 rounded-full bg-amber-300 shadow-[0_0_10px_rgba(252,211,77,0.45)]"
+                    />
+                    {t('utxos.pending')}
+                  </dt>
+                  <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-amber-100">
+                    {formatFixedCoinAmount(snapshot.unconfirmedSats)} FIX
+                  </dd>
+                </div>
+                <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-x-3 gap-y-1 py-2 last:pb-0">
+                  <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
+                    <span
+                      aria-hidden="true"
+                      className="size-1.5 shrink-0 rounded-full bg-orange-300 shadow-[0_0_10px_rgba(253,186,116,0.45)]"
+                    />
+                    {t('utxos.immature')}
+                  </dt>
+                  <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-orange-100">
+                    {formatFixedCoinAmount(snapshot.immatureCoinbaseSats ?? 0)}{' '}
+                    FIX
+                  </dd>
+                  {(snapshot.immatureCoinbaseBlocksRemaining ?? 0) > 0 ? (
+                    <dd className="col-span-2 pl-3.5 text-[10px] font-semibold text-orange-200/65">
+                      {t('home.nextMaturity', {
+                        count: snapshot.immatureCoinbaseBlocksRemaining ?? 0,
+                      })}
                     </dd>
-                  </div>
-                  <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-3 py-2">
-                    <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
-                      <span
-                        aria-hidden="true"
-                        className="size-1.5 shrink-0 rounded-full bg-amber-300 shadow-[0_0_10px_rgba(252,211,77,0.45)]"
-                      />
-                      {t('utxos.pending')}
-                    </dt>
-                    <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-amber-100">
-                      {formatFixedCoinAmount(snapshot.unconfirmedSats)} FIX
-                    </dd>
-                  </div>
-                  <div className="grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-center gap-x-3 gap-y-1 py-2 last:pb-0">
-                    <dt className="flex min-w-0 items-center gap-2 text-xs font-semibold text-[#a8b5bf]">
-                      <span
-                        aria-hidden="true"
-                        className="size-1.5 shrink-0 rounded-full bg-orange-300 shadow-[0_0_10px_rgba(253,186,116,0.45)]"
-                      />
-                      {t('utxos.immature')}
-                    </dt>
-                    <dd className="min-w-0 break-all text-right font-mono text-sm font-black tabular-nums text-orange-100">
-                      {formatFixedCoinAmount(
-                        snapshot.immatureCoinbaseSats ?? 0,
-                      )}{' '}
-                      FIX
-                    </dd>
-                    {(snapshot.immatureCoinbaseBlocksRemaining ?? 0) > 0 ? (
-                      <dd className="col-span-2 pl-3.5 text-[10px] font-semibold text-orange-200/65">
-                        {t('home.nextMaturity', {
-                          count: snapshot.immatureCoinbaseBlocksRemaining ?? 0,
-                        })}
-                      </dd>
-                    ) : null}
-                  </div>
-                </dl>
-              </div>
+                  ) : null}
+                </div>
+              </dl>
             </div>
 
             {spendableUtxoCount >= 21 ? (

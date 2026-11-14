@@ -23,7 +23,6 @@ export const pt = {
   "utxos.go": "Ir",
   "utxos.next": "Página seguinte",
   "app.ready": "Pronto",
-  "app.connectionEstablished": "Ligação estabelecida",
   "footer.officialRepository": "Repositório oficial do projeto",
   "core.ready": "WASM + Worker prontos",
   "core.unavailable": "Motor indisponível",

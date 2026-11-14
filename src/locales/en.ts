@@ -21,7 +21,6 @@ export const en = {
   "utxos.go": "Go",
   "utxos.next": "Next page",
   "app.ready": "Ready",
-  "app.connectionEstablished": "Connected",
   "footer.officialRepository": "Official project repository",
   "core.ready": "WASM + Worker ready",
   "core.unavailable": "Engine unavailable",

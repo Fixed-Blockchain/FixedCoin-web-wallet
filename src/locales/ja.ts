@@ -23,7 +23,6 @@ export const ja = {
   "utxos.go": "移動",
   "utxos.next": "次のページ",
   "app.ready": "準備完了",
-  "app.connectionEstablished": "接続済み",
   "footer.officialRepository": "公式プロジェクトリポジトリ",
   "core.ready": "WASM + Worker 準備完了",
   "core.unavailable": "エンジンを利用できません",

@@ -23,7 +23,6 @@ export const ru = {
   "utxos.go": "Перейти",
   "utxos.next": "Следующая страница",
   "app.ready": "Готово",
-  "app.connectionEstablished": "Подключено",
   "footer.officialRepository": "Официальный репозиторий проекта",
   "core.ready": "WASM + Worker готовы",
   "core.unavailable": "Движок недоступен",

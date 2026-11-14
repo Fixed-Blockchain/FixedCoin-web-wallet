@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.3
+
+- Consolidate the wallet network state and current block height into the session card.
+- Remove repeated synchronization badges and the redundant connection-status card from the home dashboard.
+- Preserve all wallet synchronization, spending, Electrum, session and Rust/WASM cryptographic behavior.
+
 ## 1.2.2
 
 - Replace the standalone spendable-balance card with a translated balance breakdown for spendable, pending and immature mining funds.
