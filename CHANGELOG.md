@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.5
+
+- Keep the desktop navigation rail compact by removing its unnecessary viewport-height constraint.
+- Place refresh and exit actions directly below the navigation while preserving the existing controls and responsive mobile layout.
+
 ## 1.2.4
 
 - Show the balance breakdown only while funds are pending or mining rewards are immature.

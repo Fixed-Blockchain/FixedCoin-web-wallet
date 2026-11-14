@@ -1533,7 +1533,7 @@ export function WalletDashboard({
           receipt={broadcastReceipt}
         />
       ) : null}
-      <aside className="subtle-shine relative hidden min-h-[calc(100dvh-12rem)] overflow-hidden rounded-[1.75rem] border border-cyan-200/[0.13] bg-[#09141e]/95 p-4 shadow-[0_30px_90px_rgba(0,0,0,0.34)] lg:sticky lg:top-28 lg:flex lg:flex-col">
+      <aside className="subtle-shine relative hidden overflow-hidden rounded-[1.75rem] border border-cyan-200/[0.13] bg-[#09141e]/95 p-4 shadow-[0_30px_90px_rgba(0,0,0,0.34)] lg:sticky lg:top-28 lg:flex lg:flex-col">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-y-10 left-0 w-px bg-gradient-to-b from-transparent via-amber-300/70 to-transparent"
